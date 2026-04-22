@@ -1,4 +1,4 @@
-import { ACTIVITY_MULTIPLIERS } from '../constants';
+import { ACTIVITY_MULTIPLIERS } from '../constants/index.js';
 export const calculateDailyCalories = ({
   age,
   height,

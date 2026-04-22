@@ -9,6 +9,10 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import router from './routers/index.js';
 
 import { env } from './utils/env.js';
+import {
+  productSwagger,
+  productSwaggerSchemas,
+} from '../docs/product.swagger.js';
 
 // Middlewares
 import { errorHandler } from './middlewares/errorHandler.js';
@@ -22,6 +26,14 @@ const swaggerSpec = swaggerJSDoc({
     info: {
       title: 'Slim Moms API',
       version: '1.0.0',
+    },
+    paths: {
+      ...productSwagger,
+    },
+    components: {
+      schemas: {
+        ...productSwaggerSchemas,
+      },
     },
   },
   apis: ['./docs/*.js'],
