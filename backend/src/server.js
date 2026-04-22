@@ -5,6 +5,7 @@ import cors from 'cors';
 // Swagger
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
+import { diaryPaths } from '../docs/diary.swagger.js';
 
 import router from './routers/index.js';
 
@@ -23,6 +24,16 @@ const swaggerSpec = swaggerJSDoc({
       title: 'Slim Moms API',
       version: '1.0.0',
     },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+    paths: diaryPaths,
   },
   apis: ['./docs/*.js'],
 });
