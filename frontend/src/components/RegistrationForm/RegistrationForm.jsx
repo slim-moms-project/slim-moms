@@ -4,16 +4,6 @@ const RegistrationForm = () => {
   return (
     <section className={css.wrapper}>
       <div className={css.card}>
-        <div className={css.topBar}>
-          <button type="button" className={css.tab}>
-            LOG IN
-          </button>
-
-          <button type="button" className={css.activeTab}>
-            REGISTRATION
-          </button>
-        </div>
-
         <h1 className={css.title}>REGISTER</h1>
 
         <form className={css.form}>

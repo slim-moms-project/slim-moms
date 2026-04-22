@@ -1,10 +1,15 @@
 import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
+import css from './RegistrationPage.module.css';
 
 const RegistrationPage = () => {
   return (
-    <div>
-      <p></p>
-    </div>
+    <section className={css.wrapper}>
+      <div className={css.card}>
+        {/* Header burada başka component olarak gelecek */}
+
+        <RegistrationForm />
+      </div>
+    </section>
   );
 };
 

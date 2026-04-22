@@ -21,16 +21,6 @@
     flex-direction: column;
 }
 
-.topBar {
-    height: 80px;
-    min-height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 18px;
-    border-bottom: 1px solid #eee;
-}
-
 .tab,
 .activeTab {
     border: none;
