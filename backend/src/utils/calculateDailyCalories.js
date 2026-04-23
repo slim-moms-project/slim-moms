@@ -1,3 +1,4 @@
+import createHttpError from 'http-errors';
 import { ACTIVITY_MULTIPLIERS } from '../constants/index.js';
 
 export const calculateDailyCalories = ({
@@ -8,28 +9,24 @@ export const calculateDailyCalories = ({
   activityLevel = 'sedentary',
 }) => {
   if (!age || !height || !weight || !gender) {
-    const error = new Error(
+    throw createHttpError(
+      400,
       'age, height, weight ve gender alanları zorunludur',
     );
-    error.status = 400;
-    throw error;
   }
 
   const normalizedGender = String(gender).toLowerCase();
   const normalizedActivityLevel = String(activityLevel).trim();
 
   if (!['male', 'female'].includes(normalizedGender)) {
-    const error = new Error('gender yalnızca "male" veya "female" olabilir');
-    error.status = 400;
-    throw error;
+    throw createHttpError(400, 'gender yalnızca "male" veya "female" olabilir');
   }
 
   if (!ACTIVITY_MULTIPLIERS[normalizedActivityLevel]) {
-    const error = new Error(
+    throw createHttpError(
+      400,
       'activityLevel yalnızca sedentary, light, moderate, active veya veryActive olabilir',
     );
-    error.status = 400;
-    throw error;
   }
 
   let bmr;
