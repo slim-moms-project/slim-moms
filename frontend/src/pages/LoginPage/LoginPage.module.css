@@ -2,15 +2,34 @@
     min-height: calc(100vh - 80px);
     background: #ffffff;
     position: relative;
-        overflow: hidden;
+    overflow: hidden;
+}
+
+.decor {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.scene {
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    min-height: calc(100vh - 80px);
+    overflow: hidden;
 }
 
 /* Ana içerik alanı */
 .container {
-    max-width: 1279px;
-    margin: 0 auto;
-    min-height: calc(100vh - 80px);
+    position: relative;
+    z-index: 1;
     padding: 0 16px;
+    min-height: calc(100vh - 80px);
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Mobil */
@@ -23,28 +42,30 @@
 /* Tablet */
 @media screen and (min-width: 768px) {
     .container {
-        padding: 0 32px;
-        position: relative;
-        overflow: hidden;
+        padding: 0 20px;
+    }
+    .scene {
+        height: 1024px;
+        min-height: unset;
+    }
+
+    .decor {
         background-image:
             url('src/assets/images/Strawberry-Big-PNG.png'),
             url('src/assets/images/Layer-42.png'),
             url('src/assets/images/Layer-9.png'),
             url('src/assets/images/vector-3.png');
 
-        background-repeat:
-            no-repeat,
-            no-repeat,
-            no-repeat;
+        background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
 
         background-position:
-            right 0 bottom 260px,
-            right 0px top -120px,
-            right 0px bottom 0px,
-            right -50px top 315px;
+            right 35px top 360px,
+            right 0 top -120px,
+            right 0 top 605px,
+            right -50px top 345px;
 
         background-size:
-            291px auto,
+            281px auto,
             770px auto,
             480px auto,
             590px auto;
@@ -58,50 +79,41 @@
 
 /* Desktop */
 @media screen and (min-width: 1280px) {
+    .scene {
+        height: 850px;
+        min-height: unset;
+    }
+
     .container {
-        padding: 0 40px;
-        max-width: 1280px;
-        min-height: calc(100vh - 80px);
+        min-height: unset;
+        height: 850px;
         padding: 0 16px;
-        position: relative;
-        overflow: hidden;
+    }
+
+    .decor {
         background-image:
-            url('src/assets/images/Strawberry-Big.png'),
             url('src/assets/images/Layer-4.png'),
-            url('src/assets/images/Layer-9.png'),
+            url('src/assets/images/Strawberry-Big.png'),
+            url('src/assets/images/Banana.png'),
             url('src/assets/images/Vector-3.png');
 
         background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
 
         background-position:
-            right 20px top 420px,
-            right 250px bottom 120px,
-            right -20px bottom 400px,
-            right -180px top 420px;
+            right 205px top -70px,
+            right 50px top 440px,
+            right 0px top -10px,
+            right -10px bottom 0;
 
         background-size:
-            330px auto,
-            700px auto,
-            560px auto,
-            700px auto;
-    }
-
-    .loginArea {
-        padding-top: 160px;
+            770px auto,
+            325px auto,
+            500px auto,
+            600px auto;
     }
 }
 
-@media screen and (min-width: 1280px) {
-    .container {
-        padding: 0 16px;
 
-    }
-
-    .loginArea {
-        justify-content: flex-start;
-        padding-top: 160px;
-    }
-}
 
 
 

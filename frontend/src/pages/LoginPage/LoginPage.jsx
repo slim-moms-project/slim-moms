@@ -4,12 +4,16 @@ import css from './LoginPage.module.css';
 const LoginPage = () => {
   return (
     <section className={css.page}>
-      <div className={css.container}>
-        <div className={css.loginArea}>
-          <LoginForm />
-        </div>
+  <div className={css.scene}>
+    <div className={css.decor}></div>
+
+    <div className={css.container}>
+      <div className={css.loginArea}>
+        <LoginForm />
       </div>
-    </section>
+    </div>
+  </div>
+</section>
   );
 };
 

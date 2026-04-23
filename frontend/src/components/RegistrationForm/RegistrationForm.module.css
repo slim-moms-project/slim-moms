@@ -1,24 +1,20 @@
-.wrapper {
+.formContainer {
+    width: 100%;
+    height: 568px;
+    margin: 0;
+    background: #fff;
+    border: 1px solid #eee;
+    box-sizing: border-box;
+    padding: 40px 20px 30px;
+    padding-top: 0;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #f7f7f7;
-    min-height: calc(100vh - 80px);
+    flex-direction: column;
 }
 
 .fields {
     display: flex;
     flex-direction: column;
     gap: 40px;
-}
-
-.card {
-    width: 320px;
-    height: 568px;
-    background: #fff;
-    border: 1px solid #eee;
-    display: flex;
-    flex-direction: column;
 }
 
 .tab,
@@ -42,31 +38,18 @@
     text-transform: uppercase;
 }
 
-.activeTab {
-    color: #212121;
-    font-family: 'Verdana';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 17px;
-    text-align: right;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-}
-
-
 .title {
     margin-top: 40px;
     margin-bottom: 60px;
     text-align: center;
-    color: #FC842D;
-    font-weight: 700;
     font-family: 'Verdana';
     font-style: normal;
+    font-weight: 700;
     font-size: 14px;
     line-height: 17px;
     letter-spacing: 0.04em;
     text-transform: uppercase;
+    color: #FC842D;
 }
 
 .form {
@@ -74,11 +57,13 @@
     display: flex;
     flex-direction: column;
     padding: 0 20px 30px;
+    width: 100%;
 }
 
 .label {
     display: flex;
     flex-direction: column;
+    gap: 2px;
 }
 
 .label span {
@@ -96,6 +81,19 @@
     border-bottom: 1px solid #E0E0E0;
     outline: none;
     padding-bottom: 3px;
+}
+
+.labelText,
+.input {
+    transition:
+        color 0.6s ease,
+        border-color 0.6s ease;
+}
+
+/* Input alanına gelince */
+.label:hover .labelText,
+.label:focus-within .labelText {
+    color: #FC842D;
 }
 
 .buttons {
@@ -137,4 +135,69 @@
     width: 182px;
     height: 44px;
     margin: 0 auto;
+}
+
+.primaryBtn,
+.secondaryBtn {
+    transition:
+        background-color .7s ease,
+        color .7s ease,
+        border-color .7s ease,
+        box-shadow .7s ease,
+        transform 0.10s ease;
+}
+
+/* Turuncu buton */
+.primaryBtn:hover {
+    background-color: #e56f14;
+    /* daha koyu turuncu */
+    box-shadow: 0 6px 14px rgba(229, 111, 20, 0.45);
+}
+
+/* Beyaz buton */
+.secondaryBtn:hover {
+    background-color: #FC842D;
+    color: #ffffff;
+    border-color: #FC842D;
+    box-shadow: 0 6px 14px rgba(252, 132, 45, 0.35);
+}
+
+/* Hafif basılma efekti */
+.primaryBtn:hover,
+.secondaryBtn:hover {
+    transform: translateY(-1px);
+}
+
+@media screen and (min-width: 768px) {
+    .formContainer {
+        width: 240px;
+        height: auto;
+        border: none;
+        padding: 0;
+        background: transparent;
+    }
+
+    .title {
+        text-align: left;
+        margin-top: 0;
+        margin-bottom: 60px;
+    }
+
+    .form {
+        padding: 0;
+    }
+
+    .buttons {
+        flex-direction: row;
+        gap: 32px;
+        margin-top: 60px;
+        justify-content: flex-start;
+    }
+
+    .primaryBtn,
+    .secondaryBtn {
+        width: 182px;
+        height: 44px;
+        flex-shrink: 0;
+    }
 }

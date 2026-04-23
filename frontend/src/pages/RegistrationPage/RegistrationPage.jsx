@@ -1,16 +1,20 @@
 import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
 import css from './RegistrationPage.module.css';
 
-const RegistrationPage = () => {
+const RegisterPage = () => {
   return (
-    <section className={css.wrapper}>
-      <div className={css.card}>
-        {/* Header burada başka component olarak gelecek */}
+    <section className={css.page}>
+      <div className={css.scene}>
+        <div className={css.decor}></div>
 
-        <RegistrationForm />
+        <div className={css.container}>
+          <div className={css.loginArea}>
+            <RegistrationForm />
+          </div>
+        </div>
       </div>
     </section>
   );
 };
 
-export default RegistrationPage;
+export default RegisterPage;

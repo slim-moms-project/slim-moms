@@ -1,5 +1,5 @@
 .formContainer {
-    width: 320px;
+    width: 100%;
     height: 568px;
     margin: 0;
     background: #fff;
@@ -57,6 +57,7 @@
     display: flex;
     flex-direction: column;
     padding: 0 20px 30px;
+    width: 100%;
 }
 
 .label {
@@ -80,6 +81,19 @@
     border-bottom: 1px solid #E0E0E0;
     outline: none;
     padding-bottom: 3px;
+}
+
+.labelText,
+.input {
+    transition:
+        color 0.6s ease,
+        border-color 0.6s ease;
+}
+
+/* Input alanına gelince */
+.label:hover .labelText,
+.label:focus-within .labelText {
+    color: #FC842D;
 }
 
 .buttons {
@@ -123,6 +137,36 @@
     margin: 0 auto;
 }
 
+.primaryBtn,
+.secondaryBtn {
+    transition:
+        background-color .7s ease,
+        color .7s ease,
+        border-color .7s ease,
+        box-shadow .7s ease,
+        transform 0.10s ease;
+}
+
+/* Turuncu buton */
+.primaryBtn:hover {
+    background-color: #e56f14; /* daha koyu turuncu */
+    box-shadow: 0 6px 14px rgba(229, 111, 20, 0.45);
+}
+
+/* Beyaz buton */
+.secondaryBtn:hover {
+    background-color: #FC842D;
+    color: #ffffff;
+    border-color: #FC842D;
+    box-shadow: 0 6px 14px rgba(252, 132, 45, 0.35);
+}
+
+/* Hafif basılma efekti */
+.primaryBtn:hover,
+.secondaryBtn:hover {
+    transform: translateY(-1px);
+}
+
 @media screen and (min-width: 768px) {
     .formContainer {
         width: 240px;
@@ -158,4 +202,4 @@
 }
 
 
-@media screen and (min-width: 1280px) {}
+
