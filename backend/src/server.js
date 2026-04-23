@@ -2,11 +2,6 @@ import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
 
-// Swagger
-import swaggerUi from 'swagger-ui-express';
-import swaggerJSDoc from 'swagger-jsdoc';
-import { diaryPaths } from '../docs/diary.swagger.js';
-
 import router from './routers/index.js';
 
 import { env } from './utils/env.js';
@@ -14,29 +9,9 @@ import { env } from './utils/env.js';
 // Middlewares
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
 const PORT = Number(env('PORT', '5000'));
-
-const swaggerSpec = swaggerJSDoc({
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'Slim Moms API',
-      version: '1.0.0',
-    },
-    components: {
-      securitySchemes: {
-        bearerAuth: {
-          type: 'http',
-          scheme: 'bearer',
-          bearerFormat: 'JWT',
-        },
-      },
-    },
-    paths: diaryPaths,
-  },
-  apis: ['./docs/*.js'],
-});
 
 export const startServer = () => {
   const app = express();
@@ -53,7 +28,7 @@ export const startServer = () => {
   );
 
   // Swagger
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  app.use('/api-docs', swaggerDocs);
 
   // Rotaları bağla
   app.use(router);
