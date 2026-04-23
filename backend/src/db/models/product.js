@@ -1,25 +1,22 @@
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
 
-const { Schema, model } = mongoose;
+// Product modeli oluşturulacak
 const productSchema = new Schema(
   {
     title: {
       type: String,
       required: true,
       trim: true,
-      index: true,
     },
     category: {
       type: String,
       required: true,
       trim: true,
-      index: true,
     },
     calories: {
       type: Number,
       required: true,
       min: 0,
-      index: true,
     },
     weight: {
       type: Number,
@@ -32,5 +29,5 @@ const productSchema = new Schema(
     versionKey: false,
   },
 );
-productSchema.index({ title: 'text', category: 'text' });
+
 export const Product = model('Product', productSchema);
