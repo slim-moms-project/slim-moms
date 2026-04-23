@@ -1,9 +1,9 @@
 .wrapper {
-    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     background: #f7f7f7;
+    min-height: calc(100vh - 80px);
 }
 
 .fields {
@@ -14,7 +14,7 @@
 
 .card {
     width: 320px;
-    height: 648px;
+    height: 568px;
     background: #fff;
     border: 1px solid #eee;
     display: flex;
@@ -93,7 +93,7 @@
 
 .input {
     border: none;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #E0E0E0;
     outline: none;
     padding-bottom: 3px;
 }

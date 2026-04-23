@@ -1,8 +1,9 @@
 import RegistrationForm from './components/RegistrationForm/RegistrationForm';
 import LoginForm from './components/LoginForm/LoginForm';
+import LoginPage from './pages/LoginPage/LoginPage';
 
 function App() {
-  return <RegistrationForm />;
+  return <LoginPage />;
 }
 
 export default App;
