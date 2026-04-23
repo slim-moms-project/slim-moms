@@ -1,0 +1,137 @@
+.form {
+    width: 100%;
+    max-width: 608px;
+}
+
+.fields {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-bottom: 60px;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.input {
+    border: none;
+    border-bottom: 1px solid #E0E0E0;
+    padding: 8px 0;
+    font-family: 'Verdana';
+    font-weight: 700;
+    font-size: 14px;
+    color: #212121;
+    width: 100%;
+    outline: none;
+    background: transparent;
+    transition: border-color 0.3s ease;
+}
+
+.input:focus {
+    border-bottom-color: #FC842D;
+}
+
+.label {
+    font-family: 'Verdana';
+    font-weight: 700;
+    font-size: 14px;
+    color: #9B9FAA;
+    letter-spacing: 0.04em;
+}
+
+.radioGroup {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.radioLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Verdana';
+    font-size: 14px;
+    color: #9B9FAA;
+    cursor: pointer;
+}
+
+.radioInput {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #E0E0E0;
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+}
+
+.radioInput:checked {
+    border-color: #E0E0E0;
+}
+
+.radioInput:checked::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #FC842D;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.activeText {
+    color: #FC842D;
+    font-weight: 700;
+}
+
+
+.button {
+    width: 210px;
+    height: 43px;
+    background: #FC842D;
+    box-shadow: 0px 4px 10px rgba(252, 132, 45, 0.5);
+    border-radius: 30px;
+    border: none;
+    color: #FFFFFF;
+    font-family: 'Verdana';
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.button:hover {
+    transform: scale(1.02);
+}
+
+
+@media (min-width: 768px) {
+    .fields {
+        flex-direction: row;
+        flex-wrap: wrap;
+        column-gap: 32px;
+    }
+
+    .col {
+        flex: 0 0 240px;
+    }
+
+    .button {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 1280px) {
+    .button {
+        margin-left: auto;
+
+    }
+}

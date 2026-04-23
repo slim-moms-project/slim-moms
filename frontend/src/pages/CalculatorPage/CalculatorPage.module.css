@@ -1,0 +1,130 @@
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    font-family: 'Verdana', sans-serif;
+    min-height: 100vh;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.formSection {
+    background: #FFFFFF;
+    padding: 32px 20px;
+}
+
+.resultSection {
+    background: #F0F1F3;
+    padding: 40px 20px;
+    min-height: 360px;
+    position: relative;
+    overflow: hidden;
+}
+
+.title {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.4;
+    color: #212121;
+    margin-bottom: 34px;
+}
+
+.resultContent {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+.resultLabel,
+.notRecommendedTitle {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.04em;
+    color: #212121;
+    margin-bottom: 20px;
+}
+
+.notRecommendedItem,
+.resultValue,
+.placeholder {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.04em;
+    color: #9B9FAA;
+}
+
+@media (min-width: 768px) {
+    .formSection {
+        padding: 100px 32px;
+    }
+
+    .title {
+        font-size: 34px;
+        margin-bottom: 68px;
+        max-width: 704px;
+    }
+
+    .resultSection {
+        padding: 80px 32px;
+        min-height: 326px;
+    }
+
+    .resultContent {
+        flex-direction: row;
+        /* Tablette yan yana */
+        gap: 80px;
+    }
+
+
+    .resultSection::after {
+        content: '';
+        position: absolute;
+        width: 428px;
+        height: 602px;
+        right: 0;
+        bottom: 0;
+        background: url('../../assets/images/Layer-41.png') no-repeat;
+        background-size: contain;
+        transform: rotate(90deg);
+        opacity: 0.6;
+        pointer-events: none;
+    }
+}
+
+@media (min-width: 1280px) {
+    .wrapper {
+        flex-direction: row;
+        min-height: 100vh;
+    }
+
+    .formSection {
+        width: 60%;
+        padding: 293px 100px 100px 16px;
+    }
+
+    .resultSection {
+        width: 40%;
+        padding: 292px 80px 100px 106px;
+    }
+
+    .resultContent {
+        flex-direction: column;
+        gap: 60px;
+    }
+
+    .resultSection::after {
+        width: 740px;
+        height: 842px;
+        right: -100px;
+        top: 35px;
+        background: url('../../assets/images/Layer-42.png') no-repeat;
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+}
