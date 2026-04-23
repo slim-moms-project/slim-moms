@@ -5,10 +5,6 @@ import cors from 'cors';
 import router from './routers/index.js';
 
 import { env } from './utils/env.js';
-import {
-  productSwagger,
-  productSwaggerSchemas,
-} from '../docs/product.swagger.js';
 
 // Middlewares
 import { errorHandler } from './middlewares/errorHandler.js';
@@ -16,25 +12,6 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
 const PORT = Number(env('PORT', '5000'));
-
-const swaggerSpec = swaggerJSDoc({
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'Slim Moms API',
-      version: '1.0.0',
-    },
-    paths: {
-      ...productSwagger,
-    },
-    components: {
-      schemas: {
-        ...productSwaggerSchemas,
-      },
-    },
-  },
-  apis: ['./docs/*.js'],
-});
 
 export const startServer = () => {
   const app = express();
