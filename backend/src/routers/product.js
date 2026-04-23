@@ -1,4 +1,4 @@
-import express from 'express';
+import { Router } from 'express';
 //import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 //import { searchProductsController } from '../controllers/products.js';
 import {
@@ -7,8 +7,10 @@ import {
   calculateDailyCaloriesController,
 } from '../controllers/products.js';
 
-const router = express.Router();
+const router = Router();
+
 router.get('/', getProductsController);
-(router.get('/search', searchProductsController),
-  router.get('/calculate-daily-calories', calculateDailyCaloriesController));
+router.get('/search', searchProductsController);
+router.post('/calculate-daily-calories', calculateDailyCaloriesController);
+
 export default router;
