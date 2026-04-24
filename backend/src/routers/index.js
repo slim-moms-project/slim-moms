@@ -6,8 +6,8 @@ import productRouter from './product.js';
 const router = Router();
 
 // Ana Router'ları burada kullanacağız
-router.use('/auth', authRouter);
-router.use('/diary', diaryRouter);
-router.use('/product', productRouter);
+router.use('/api/auth', authRouter);
+router.use('/api/diary', diaryRouter);
+router.use('/api/product', productRouter);
 
 export default router;

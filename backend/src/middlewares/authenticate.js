@@ -41,6 +41,7 @@ export const authenticate = async (req, res, next) => {
   // Token süresi dolmuşsa hata döndür
   if (isAccessTokenExpired) {
     next(createHttpError(401, 'Access token expired'));
+    return;
   }
 
   // Kullanıcıyı bul
@@ -48,12 +49,13 @@ export const authenticate = async (req, res, next) => {
 
   // Kullanıcı bulunamazsa hata döndür
   if (!user) {
-    next(createHttpError(401));
+    next(createHttpError(401, 'User not found'));
     return;
   }
 
   // Kullanıcıyı request'e ekle
   req.user = user;
+  req.session = session;
 
   next();
 };
