@@ -166,14 +166,13 @@
         transform 0.10s ease;
 }
 
-/* Turuncu buton */
+
 .primaryBtn:hover {
     background-color: var(--color-primary-hover);
-    /* daha koyu turuncu */
     box-shadow: var(--shadow-btn);
 }
 
-/* Beyaz buton */
+
 .secondaryBtn:hover {
     background-color: var(--color-primary);
     color: var(--color-white);
@@ -181,7 +180,7 @@
     box-shadow: var(--shadow-btn);
 }
 
-/* Hafif basılma efekti */
+
 .primaryBtn:hover,
 .secondaryBtn:hover {
     transform: translateY(-1px);
