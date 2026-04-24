@@ -56,7 +56,9 @@ export const loginUser = async (payload) => {
 };
 
 // Kullanıcı çıkışı için servis fonksiyonu
-export const logoutUser = async (sessionId) => {};
+export const logoutUser = async (sessionId) => {
+  await SessionsCollection.findByIdAndDelete(sessionId);
+};
 
 // Kullanıcı oturumunu yenile (refresh token rotasyonu)
 export const refreshUsersSession = async ({ sessionId, refreshToken }) => {};

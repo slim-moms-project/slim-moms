@@ -1,5 +1,5 @@
 import { registerUserSchema, loginUserSchema } from '../validation/auth.js';
-import { registerUser, loginUser } from '../services/auth.js';
+import { registerUser, loginUser, logoutUser } from '../services/auth.js';
 
 export const registerUserController = async (req, res) => {
   const payload = await registerUserSchema.validateAsync(req.body, {
@@ -35,6 +35,21 @@ export const loginUserController = async (req, res) => {
   });
 };
 
-export const logoutUserController = async (req, res) => {};
+export const logoutUserController = async (req, res) => {
+  const sessionId = req.session._id;
+  await logoutUser(sessionId);
+  res.status(200).json({
+    status: 200,
+    message: 'Successfully logged out',
+  });
+};
 
-export const getCurrentUserController = async (req, res) => {};
+export const getCurrentUserController = async (req, res) => {
+  res.status(200).json({
+    status: 200,
+    message: 'Successfully found user',
+    data: {
+      user: req.user,
+    },
+  });
+};
