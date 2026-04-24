@@ -16,11 +16,25 @@
     gap: 32px;
 }
 
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.label {
+    font-family: 'Verdana', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: #9B9FAA;
+    letter-spacing: 0.04em;
+}
+
 .input {
     border: none;
     border-bottom: 1px solid #E0E0E0;
     padding: 8px 0;
-    font-family: 'Verdana';
+    font-family: 'Verdana', sans-serif;
     font-weight: 700;
     font-size: 14px;
     color: #212121;
@@ -34,12 +48,10 @@
     border-bottom-color: #FC842D;
 }
 
-.label {
-    font-family: 'Verdana';
-    font-weight: 700;
-    font-size: 14px;
-    color: #9B9FAA;
-    letter-spacing: 0.04em;
+
+.input option {
+    font-weight: 400;
+    color: #212121;
 }
 
 .radioGroup {
@@ -52,7 +64,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-family: 'Verdana';
+    font-family: 'Verdana', sans-serif;
     font-size: 14px;
     color: #9B9FAA;
     cursor: pointer;
@@ -66,6 +78,7 @@
     border-radius: 50%;
     position: relative;
     cursor: pointer;
+    flex-shrink: 0;
 }
 
 .radioInput:checked {
@@ -84,11 +97,13 @@
     transform: translate(-50%, -50%);
 }
 
-.activeText {
-    color: #FC842D;
-    font-weight: 700;
-}
 
+.error {
+    font-family: 'Verdana', sans-serif;
+    font-size: 12px;
+    color: #FC842D;
+    margin: 0;
+}
 
 .button {
     width: 210px;
@@ -98,7 +113,7 @@
     border-radius: 30px;
     border: none;
     color: #FFFFFF;
-    font-family: 'Verdana';
+    font-family: 'Verdana', sans-serif;
     font-weight: 700;
     font-size: 14px;
     cursor: pointer;
@@ -112,8 +127,13 @@
     transform: scale(1.02);
 }
 
+.button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
 
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
     .fields {
         flex-direction: row;
         flex-wrap: wrap;
@@ -123,15 +143,10 @@
     .col {
         flex: 0 0 240px;
     }
-
-    .button {
-        margin-left: 0;
-    }
 }
 
-@media (min-width: 1280px) {
+@media screen and (min-width: 1280px) {
     .button {
         margin-left: auto;
-
     }
 }

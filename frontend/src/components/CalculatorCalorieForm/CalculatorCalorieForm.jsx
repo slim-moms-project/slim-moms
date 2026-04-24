@@ -1,9 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { calculateDailyCalories } from '../../redux/calculator/calculatorOperations';
-import {
-  selectCalculatorIsLoading,
-} from '../../redux/calculator/calculatorSelectors';
+import { selectCalculatorIsLoading } from '../../redux/calculator/calculatorSelectors';
 import { calculatorValidationSchema } from '../../utils/validationSchema';
 import css from './CalculatorCalorieForm.module.css';
 
@@ -12,7 +10,7 @@ const initialValues = {
   age: '',
   currentWeight: '',
   desiredWeight: '',
-  bloodType: '',
+  bloodType: '1',
 };
 
 const CalculatorCalorieForm = () => {
@@ -30,9 +28,7 @@ const CalculatorCalorieForm = () => {
           bloodType: Number(values.bloodType),
         })
       ).unwrap();
-
-      resetForm(); 
-
+      resetForm();
     } catch (error) {
       console.error('Calculation failed:', error);
     }
@@ -43,48 +39,42 @@ const CalculatorCalorieForm = () => {
       initialValues={initialValues}
       validationSchema={calculatorValidationSchema}
       onSubmit={handleSubmit}
-      validateOnBlur
-      validateOnChange={false} 
     >
       {({ isValid, dirty }) => (
         <Form className={css.form}>
           <div className={css.fields}>
 
-            {/* LEFT */}
+            {/* SOL */}
             <div className={css.col}>
-
               <div className={css.field}>
-                <label className={css.label} htmlFor="height">Height *</label>
-                <Field className={css.input} id="height" name="height" type="number" />
+                <label className={css.label}>Height *</label>
+                <Field className={css.input} name="height" type="number" />
                 <ErrorMessage name="height" component="p" className={css.error} />
               </div>
 
               <div className={css.field}>
-                <label className={css.label} htmlFor="age">Age *</label>
-                <Field className={css.input} id="age" name="age" type="number" />
+                <label className={css.label}>Age *</label>
+                <Field className={css.input} name="age" type="number" />
                 <ErrorMessage name="age" component="p" className={css.error} />
               </div>
 
               <div className={css.field}>
-                <label className={css.label} htmlFor="currentWeight">Current weight *</label>
-                <Field className={css.input} id="currentWeight" name="currentWeight" type="number" />
+                <label className={css.label}>Current weight *</label>
+                <Field className={css.input} name="currentWeight" type="number" />
                 <ErrorMessage name="currentWeight" component="p" className={css.error} />
               </div>
-
             </div>
 
-            {/* RIGHT */}
+            {/* SAĞ */}
             <div className={css.col}>
-
               <div className={css.field}>
-                <label className={css.label} htmlFor="desiredWeight">Desired weight *</label>
-                <Field className={css.input} id="desiredWeight" name="desiredWeight" type="number" />
+                <label className={css.label}>Desired weight *</label>
+                <Field className={css.input} name="desiredWeight" type="number" />
                 <ErrorMessage name="desiredWeight" component="p" className={css.error} />
               </div>
 
               <div className={css.bloodTypeGroup}>
                 <p className={css.bloodTypeLabel}>Blood type *</p>
-
                 <div className={css.radioGroup}>
                   {[1, 2, 3, 4].map(type => (
                     <label key={type} className={css.radioLabel}>
@@ -94,18 +84,17 @@ const CalculatorCalorieForm = () => {
                         name="bloodType"
                         value={String(type)}
                       />
+                      <span className={css.customRadio}></span>
                       {type}
                     </label>
                   ))}
                 </div>
-
                 <ErrorMessage name="bloodType" component="p" className={css.error} />
               </div>
-
             </div>
+
           </div>
 
-          {/* SUBMIT */}
           <button
             className={css.button}
             type="submit"

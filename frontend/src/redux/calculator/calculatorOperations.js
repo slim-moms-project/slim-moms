@@ -7,8 +7,20 @@ export const calculateDailyCalories = createAsyncThunk(
   async (formData, thunkAPI) => {
     thunkAPI.dispatch(showLoader());
     try {
-      const { data } = await axiosInstance.post('/products/calories', formData);
-      return data;
+      const payload = {
+        weight: formData.currentWeight,
+        height: formData.height,
+        age: formData.age,
+        desiredWeight: formData.desiredWeight,
+        bloodType: formData.bloodType,
+      };
+
+      const { data } = await axiosInstance.post(
+        '/products/calculate-daily-calories',
+        payload
+      );
+
+      return data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response?.data?.message);
     } finally {

@@ -1,6 +1,6 @@
 .container {
-    max-width: 1280px;
-    margin: 0 auto;
+    width: 100%;
+    
     font-family: 'Verdana', sans-serif;
     min-height: 100vh;
 }
@@ -39,8 +39,7 @@
     z-index: 1;
 }
 
-.resultLabel,
-.notRecommendedTitle {
+.resultLabel {
     font-weight: 700;
     font-size: 14px;
     line-height: 17px;
@@ -49,8 +48,14 @@
     margin-bottom: 20px;
 }
 
-.notRecommendedItem,
-.resultValue,
+.resultValue {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.04em;
+    color: #9B9FAA;
+}
+
 .placeholder {
     font-weight: 400;
     font-size: 14px;
@@ -59,7 +64,34 @@
     color: #9B9FAA;
 }
 
-@media (min-width: 768px) {
+.error {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.04em;
+    color: #FC842D;
+}
+
+/* bmr ve activityLevel */
+.extraInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.extraItem {
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.04em;
+    color: #9B9FAA;
+}
+
+.extraItem strong {
+    color: #212121;
+    font-weight: 700;
+}
+
+@media screen and (min-width: 768px) {
     .formSection {
         padding: 100px 32px;
     }
@@ -77,10 +109,8 @@
 
     .resultContent {
         flex-direction: row;
-        /* Tablette yan yana */
         gap: 80px;
     }
-
 
     .resultSection::after {
         content: '';
@@ -88,16 +118,13 @@
         width: 428px;
         height: 602px;
         right: 0;
-        bottom: 0;
+        bottom: -250px;
         background: url('../../assets/images/Layer-41.png') no-repeat;
         background-size: contain;
-        transform: rotate(90deg);
-        opacity: 0.6;
-        pointer-events: none;
     }
 }
 
-@media (min-width: 1280px) {
+@media screen and (min-width: 1280px) {
     .wrapper {
         flex-direction: row;
         min-height: 100vh;
@@ -121,7 +148,7 @@
     .resultSection::after {
         width: 740px;
         height: 842px;
-        right: -100px;
+        right: -250px;
         top: 35px;
         background: url('../../assets/images/Layer-42.png') no-repeat;
         transform: rotate(0deg);
