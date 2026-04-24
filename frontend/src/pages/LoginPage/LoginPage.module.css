@@ -1,6 +1,6 @@
 .page {
     min-height: calc(100vh - 80px);
-    background: #ffffff;
+    background: var(--color-bg);
     position: relative;
     overflow: hidden;
 }
