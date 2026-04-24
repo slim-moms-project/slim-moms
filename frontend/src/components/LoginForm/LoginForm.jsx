@@ -13,23 +13,62 @@ const LoginForm = () => {
   const error = useSelector(selectAuthError);
   const isLoading = useSelector(selectAuthIsLoading);
   const navigate = useNavigate();
+  const [errors, setErrors] = useState({});
 
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
 
-  const handleChange = event => {
-    const { name, value } = event.target;
+  const validateField = (name, value) => {
+  if (!value.trim()) {
+    return 'This field cannot be empty!';
+  }
 
-    setFormData(prev => ({
-      ...prev,
-      [name]: value,
-    }));
+  if (name === 'email' && !/^\S+@\S+\.\S+$/.test(value)) {
+    return 'Please enter a valid email!';
+  }
+
+  return '';
   };
+
+  const handleBlur = event => {
+  const { name, value } = event.target;
+
+  setErrors(prev => ({
+    ...prev,
+    [name]: validateField(name, value),
+  }));
+};
+
+  const handleChange = event => {
+  const { name, value } = event.target;
+
+  setFormData(prev => ({
+    ...prev,
+    [name]: value,
+  }));
+
+  setErrors(prev => ({
+    ...prev,
+    [name]: '',
+  }));
+};
 
 const handleSubmit = event => {
   event.preventDefault();
+
+  const newErrors = {
+    email: validateField('email', formData.email),
+    password: validateField('password', formData.password),
+  };
+
+  setErrors(newErrors);
+
+  const hasError = Object.values(newErrors).some(Boolean);
+
+  if (hasError) return;
+
   dispatch(loginUser(formData));
 };
 
@@ -37,30 +76,32 @@ const handleSubmit = event => {
     <div className={css.formContainer}>
       <h1 className={css.title}>LOG IN</h1>
 
-      <form className={css.form} onSubmit={handleSubmit}>
+      <form className={css.form} onSubmit={handleSubmit} noValidate>
         <div className={css.fields}>
           <label className={css.label}>
             <span className={css.labelText}>Email *</span>
             <input
-              className={css.input}
+              className={`${css.input} ${errors.email ? css.errorInput : ''}`}
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              required
+              onBlur={handleBlur}
             />
+            {errors.email && <p className={css.fieldError}>{errors.email}</p>}
           </label>
 
           <label className={css.label}>
             <span className={css.labelText}>Password *</span>
             <input
-              className={css.input}
+              className={`${css.input} ${errors.password ? css.errorInput : ''}`}
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
-              required
+              onBlur={handleBlur}
             />
+            {errors.password && <p className={css.fieldError}>{errors.password}</p>}
           </label>
         </div>
 
