@@ -533,6 +533,72 @@ Sonuc:
 - Auth endpointleri icin Swagger dokumantasyonu kod olarak tamamlandi.
 - `/api-docs` uzerinden manuel goruntu kontrolu MongoDB baglanti problemi giderildikten sonra yapilacak.
 
+### Adim 12 - MongoDB Baglanti Teshisi ve Manuel Auth Testleri
+
+Tarih: 2026-04-24
+
+Adim: MongoDB baglanti problemi farkli senaryolarla arastirildi, Node 20 altinda backend ayaga kaldirildi ve auth endpointleri manuel olarak test edildi.
+
+Ne denedik:
+
+- MongoDB Atlas `IP Access List` ekraninda `0.0.0.0/0` girdisinin aktif oldugu dogrulandi.
+- Is yeri interneti yerine telefon hotspot'u ile deneme yapildi.
+- Windows DNS ayari Cloudflare DNS (`1.1.1.1`, `1.0.0.1`) olacak sekilde degistirilerek tekrar denendi.
+- Atlas'tan `mongodb+srv://...` yerine normal `mongodb://...` connection string alinarak test edildi.
+- Atlas'ta olusturulan `cigdemtahtasiz_db_user` kullanicisi ve sifresiyle ayri denemeler yapildi.
+- `Database Users` ekraninda kullanicinin gercekten var oldugu ve `atlasAdmin@admin` rolu tasidigi dogrulandi.
+- Sifre resetlenip tekrar denendi.
+- Kerem'in paylastigi ortak backend `.env` bilgileriyle tekrar test yapildi.
+- Node 20.18.0'in tasinabilir surumu ile backend ayaga kaldirilarak calisma davranisi karsilastirildi.
+
+Karsilasilan hatalar:
+
+- Node 24 altinda:
+  - `querySrv ECONNREFUSED _mongodb._tcp.cluster0.audyhuc.mongodb.net`
+- Normal `mongodb://` connection string ile bazi denemelerde:
+  - `getaddrinfo ENOTFOUND`
+- Yanlis veya uyusmayan kullanici/sifre senaryolarinda:
+  - `MongoServerError: bad auth : Authentication failed`
+
+Bu hatalar bize ne anlatti:
+
+- Sorun sadece auth kodu veya kullanici modeli kaynakli degildi.
+- Atlas `IP Access List` dogru oldugu halde Node 24 tarafinda SRV/DNS cozumleme problemi devam etti.
+- Kerem'in paylastigi ortak backend `.env` bilgileriyle de ayni `querySrv ECONNREFUSED` hatasi alindigi icin sorun kullaniciya ozel degil, ortam kaynakli gorundu.
+- Node 20 altinda backend ayaga kalkabildigi icin sorun buyuk olasilikla Node 24 ve DNS/SRV cozumleme davranisiyla ilgilidir.
+
+Node 20 bulgusu:
+
+- Tasinabilir Node 20.18.0 ile backend calistirildi.
+- `Mongo connection successfully established!` ve `Server is running on port 5000` loglari goruldu.
+- Ayrica 5000 portunun dinledigi dogrulandi.
+
+Manuel API testleri (Node 20 altinda):
+
+- `POST /auth/register` -> `201 Created`
+- `POST /auth/login` -> `200 OK`
+- `GET /auth/current` -> `200 OK`
+- `POST /auth/logout` -> `200 OK`
+- Logout sonrasi ayni token ile `GET /auth/current` -> `401 Unauthorized`
+- Logout sonrasi response mesajinda `Session not found` goruldu; bu, session silme mantiginin dogru calistigini gosterdi.
+
+Nasil test ettik:
+
+- Atlas `IP Access List` ve `Database Users` ekranlari kontrol edildi.
+- Farkli ag senaryolari (is yeri interneti, telefon hotspot'u) denendi.
+- DNS ayarlari degistirilerek tekrar denendi.
+- Farkli Mongo connection string formatlari denendi.
+- Farkli kullanici/sifre kombinasyonlari denendi.
+- Node 20 altinda backend baslatildi.
+- Postman ile auth endpointlerine manuel istekler gonderildi.
+
+Sonuc:
+
+- Auth endpointlerinin ana akisi manuel olarak dogrulandi.
+- `register`, `login`, `current`, `logout` ve logout sonrasi `current` davranisi beklendigi gibi calisti.
+- MongoDB baglanti problemi koddan ziyade Node 24 / DNS-SRV cozumleme davranisina bagli gorunuyor.
+- Manuel testler Node 20 altinda basarili sekilde yapildi.
+
 ## Acik Kararlar
 
 Bu kararlar kod yazarken netlestirilecek:
@@ -542,6 +608,7 @@ Bu kararlar kod yazarken netlestirilecek:
 - Login response formatinda `token` alaninin yaninda `refreshToken` da donulmesi kabul edildi.
 - Swagger security scheme merkezi olarak `backend/src/middlewares/swaggerDocs.js` icinde tanimlandi; endpoint bazli path dokumantasyonu `backend/docs/auth.swagger.js` icinde tutuldu.
 - `POST /api/auth/register` response'unun sadece `user` mu, yoksa otomatik login gibi token da mi donecegi urun beklentisine gore ayrica netlestirilebilir.
+- Swagger path'leri su an `/api/auth/...` olarak yazildi, fakat router yapisi su anda `/auth/...` altinda calisiyor. Swagger ile gercek route path'lerinin ayni yapida olup olmayacagi netlestirilmelidir.
 
 ## Mentor Notu
 
