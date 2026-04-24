@@ -1,5 +1,4 @@
 import { DiaryCollection } from '../db/models/diary.js';
-import { isValidObjectId } from 'mongoose';
 
 const getUserIdOrRespond = (req, res) => {
   const userId = req.user?._id;
@@ -14,25 +13,67 @@ const getUserIdOrRespond = (req, res) => {
   return userId;
 };
 
+const parseDateOnly = (dateString) => {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateString);
+  if (!match) return null;
+
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  const parsedDate = new Date(year, month - 1, day);
+
+  if (
+    parsedDate.getFullYear() !== year ||
+    parsedDate.getMonth() !== month - 1 ||
+    parsedDate.getDate() !== day
+  ) {
+    return null;
+  }
+
+  return parsedDate;
+};
+
+const formatDateOnly = (value) => {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
+const serializeDiaryEntry = (entry) => {
+  const diaryObject = entry.toObject ? entry.toObject() : entry;
+  return {
+    ...diaryObject,
+    date: formatDateOnly(diaryObject.date),
+  };
+};
+
 // Diary Ekleme POST (/api/diary)
 export const addDiaryController = async (req, res) => {
   const userId = getUserIdOrRespond(req, res);
   if (!userId) return;
 
   const { productId, date, amount, calories } = req.body; // validation ile kontrol edilecek
+  const parsedDate = parseDateOnly(date);
 
-  if (!isValidObjectId(productId)) {
+  if (!parsedDate) {
     return res.status(400).json({
       status: 'error',
       code: 400,
-      message: 'Invalid productId format.',
+      message: 'Invalid date format. Use YYYY-MM-DD.',
     });
   }
+
+  const normalizedDate = new Date(parsedDate);
+  normalizedDate.setHours(0, 0, 0, 0);
 
   const newDiary = await DiaryCollection.create({
     userId,
     productId,
-    date,
+    date: normalizedDate,
     amount,
     calories,
   });
@@ -40,7 +81,7 @@ export const addDiaryController = async (req, res) => {
     status: 'success',
     code: 201,
     message: 'Diary created successfully',
-    data: newDiary,
+    data: serializeDiaryEntry(newDiary),
   });
 };
 
@@ -52,10 +93,10 @@ export const getDiaryController = async (req, res) => {
   const { date } = req.query;
   let filter = { userId };
 
-  // Modelde date tipi 'Date' olduğu için, günün başlangıcı ve bitişi arasında arama yapıyoruz.
+  // YYYY-MM-DD tarihini local timezone'da parse edip gün aralığı oluşturuyor.
   if (date) {
-    const searchDate = new Date(date);
-    if (Number.isNaN(searchDate.getTime())) {
+    const searchDate = parseDateOnly(date);
+    if (!searchDate) {
       return res.status(400).json({
         status: 'error',
         code: 400,
@@ -63,8 +104,10 @@ export const getDiaryController = async (req, res) => {
       });
     }
 
-    const startOfDay = new Date(searchDate.setHours(0, 0, 0, 0));
-    const endOfDay = new Date(searchDate.setHours(23, 59, 59, 999));
+    const startOfDay = new Date(searchDate);
+    startOfDay.setHours(0, 0, 0, 0);
+    const endOfDay = new Date(searchDate);
+    endOfDay.setHours(23, 59, 59, 999);
 
     filter.date = {
       $gte: startOfDay,
@@ -75,7 +118,7 @@ export const getDiaryController = async (req, res) => {
   res.status(200).json({
     status: 'success',
     code: 200,
-    data: diaryEntries,
+    data: diaryEntries.map(serializeDiaryEntry),
   });
 };
 
@@ -85,14 +128,6 @@ export const deleteDiaryController = async (req, res) => {
   if (!userId) return;
 
   const { id } = req.params;
-
-  if (!isValidObjectId(id)) {
-    return res.status(400).json({
-      status: 'error',
-      code: 400,
-      message: 'Invalid diary id format.',
-    });
-  }
 
   const deletedDiary = await DiaryCollection.findOneAndDelete({
     _id: id,
@@ -112,6 +147,6 @@ export const deleteDiaryController = async (req, res) => {
     status: 'success',
     code: 200,
     message: 'Record successfully deleted.',
-    data: deletedDiary,
+    data: serializeDiaryEntry(deletedDiary),
   });
 };

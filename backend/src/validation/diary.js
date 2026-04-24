@@ -9,10 +9,14 @@ export const addDiarySchema = Joi.object({
       'string.empty': 'Product ID cannot be empty.',
       'string.pattern.base': 'Product ID must be a valid Mongo ObjectId.',
     }),
-  date: Joi.date().required().messages({
-    'any.required': 'Date is required.',
-    'date.base': 'Date must be a valid date format (e.g., YYYY-MM-DD).',
-  }),
+  date: Joi.string()
+    .pattern(/^\d{4}-\d{2}-\d{2}$/)
+    .required()
+    .messages({
+      'any.required': 'Date is required.',
+      'string.empty': 'Date cannot be empty.',
+      'string.pattern.base': 'Date must be in YYYY-MM-DD format.',
+    }),
   amount: Joi.number()
     .positive()
     .required()
