@@ -114,7 +114,11 @@ export const getDiaryController = async (req, res) => {
       $lte: endOfDay,
     };
   }
-  const diaryEntries = await DiaryCollection.find(filter);
+  const diaryEntries = await DiaryCollection.find(filter).sort({
+    date: -1,
+    createdAt: -1,
+  });
+
   res.status(200).json({
     status: 'success',
     code: 200,
