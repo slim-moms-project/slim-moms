@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { clearAuthError } from '../../redux/auth/authSlice.js';
 import { registerUser } from '../../redux/auth/authOperations.js';
 import {
   selectAuthError,
   selectAuthIsLoading,
 } from '../../redux/auth/authSelectors.js';
+import { registerValidationSchema } from '../../utils/validationSchema.js';
 import css from './RegistrationForm.module.css';
 
 const RegistrationForm = () => {
@@ -13,6 +15,8 @@ const RegistrationForm = () => {
   const error = useSelector(selectAuthError);
   const isLoading = useSelector(selectAuthIsLoading);
   const navigate = useNavigate();
+
+
   const [errors, setErrors] = useState({});
 
   const [formData, setFormData] = useState({
@@ -21,33 +25,41 @@ const RegistrationForm = () => {
     password: '',
   });
 
-  const validateField = (name, value) => {
-  if (!value.trim()) {
-    return 'This field cannot be empty!';
-  }
+ useEffect(() => {
+  dispatch(clearAuthError());
 
-  if (name === 'email' && !/^\S+@\S+\.\S+$/.test(value)) {
-    return 'Please enter a valid email!';
-  }
-
-  if (name === 'password' && value.length < 6) {
-    return 'Password must be at least 6 characters!';
-  }
-
-  return '';
+  return () => {
+    dispatch(clearAuthError());
   };
+}, [dispatch]);
 
-  const handleBlur = e => {
-  const { name, value } = e.target;
+const handleBlur = async event => {
+  const { name, value } = event.target;
 
-  setErrors(prev => ({
-    ...prev,
-    [name]: validateField(name, value),
-  }));
+  try {
+    await registerValidationSchema.validateAt(name, {
+      ...formData,
+      [name]: value,
+    });
+
+    setErrors(prev => ({
+      ...prev,
+      [name]: '',
+    }));
+  } catch (error) {
+    setErrors(prev => ({
+      ...prev,
+      [name]: error.message,
+    }));
+  }
 };
 
-  const handleChange = e => {
+const handleChange = e => {
   const { name, value } = e.target;
+
+  if (error) {
+    dispatch(clearAuthError());
+  }
 
   setFormData(prev => ({
     ...prev,
@@ -60,22 +72,31 @@ const RegistrationForm = () => {
   }));
 };
 
-const handleSubmit = e => {
-  e.preventDefault();
+const handleSubmit = async event => {
+  event.preventDefault();
 
-  const newErrors = {
-    name: validateField('name', formData.name),
-    email: validateField('email', formData.email),
-    password: validateField('password', formData.password),
-  };
+  try {
+    await registerValidationSchema.validate(formData, {
+      abortEarly: false,
+    });
 
-  setErrors(newErrors);
+    setErrors({});
 
-  const hasError = Object.values(newErrors).some(Boolean);
+    await dispatch(registerUser(formData)).unwrap();
 
-  if (hasError) return;
+    navigate('/login');
+  } catch (err) {
+    if (err.inner) {
+      const newErrors = {};
 
-  dispatch(registerUser(formData));
+      err.inner.forEach(error => {
+        newErrors[error.path] = error.message;
+      });
+
+      setErrors(newErrors);
+      return;
+    }
+  }
 };
 
   return (
@@ -87,7 +108,7 @@ const handleSubmit = e => {
           <label className={css.label}>
             <span className={css.labelText}>Name *</span>
             <input
-              className={css.input}
+              className={`${css.input} ${errors.name ? css.errorInput : ''}`}
               type="text"
               name="name"
               value={formData.name}
@@ -100,7 +121,7 @@ const handleSubmit = e => {
           <label className={css.label}>
             <span className={css.labelText}>Email *</span>
             <input
-              className={css.input}
+              className={`${css.input} ${errors.email ? css.errorInput : ''}`}
               type="email"
               name="email"
               value={formData.email}
@@ -113,7 +134,7 @@ const handleSubmit = e => {
           <label className={css.label}>
             <span className={css.labelText}>Password *</span>
             <input
-              className={css.input}
+              className={`${css.input} ${errors.password ? css.errorInput : ''}`}
               type="password"
               name="password"
               value={formData.password}

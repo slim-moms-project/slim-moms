@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { clearAuthError } from '../../redux/auth/authSlice.js';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../redux/auth/authOperations.js';
@@ -6,6 +7,7 @@ import {
   selectAuthError,
   selectAuthIsLoading,
 } from '../../redux/auth/authSelectors.js';
+import { loginValidationSchema } from '../../utils/validationSchema.js';
 import css from './LoginForm.module.css';
 
 const LoginForm = () => {
@@ -20,29 +22,42 @@ const LoginForm = () => {
     password: '',
   });
 
-  const validateField = (name, value) => {
-  if (!value.trim()) {
-    return 'This field cannot be empty!';
-  }
+  useEffect(() => {
+  dispatch(clearAuthError());
 
-  if (name === 'email' && !/^\S+@\S+\.\S+$/.test(value)) {
-    return 'Please enter a valid email!';
-  }
-
-  return '';
+  return () => {
+    dispatch(clearAuthError());
   };
+  }, [dispatch]);
 
-  const handleBlur = event => {
+
+const handleBlur = async event => {
   const { name, value } = event.target;
 
-  setErrors(prev => ({
-    ...prev,
-    [name]: validateField(name, value),
-  }));
+  try {
+    await loginValidationSchema.validateAt(name, {
+      ...formData,
+      [name]: value,
+    });
+
+    setErrors(prev => ({
+      ...prev,
+      [name]: '',
+    }));
+  } catch (error) {
+    setErrors(prev => ({
+      ...prev,
+      [name]: error.message,
+    }));
+  }
 };
 
   const handleChange = event => {
   const { name, value } = event.target;
+
+  if (error) {
+    dispatch(clearAuthError());
+  }
 
   setFormData(prev => ({
     ...prev,
@@ -55,21 +70,31 @@ const LoginForm = () => {
   }));
 };
 
-const handleSubmit = event => {
+const handleSubmit = async event => {
   event.preventDefault();
 
-  const newErrors = {
-    email: validateField('email', formData.email),
-    password: validateField('password', formData.password),
-  };
+  try {
+    await loginValidationSchema.validate(formData, {
+      abortEarly: false,
+    });
 
-  setErrors(newErrors);
+    setErrors({});
 
-  const hasError = Object.values(newErrors).some(Boolean);
+    await dispatch(loginUser(formData)).unwrap();
 
-  if (hasError) return;
+    navigate('/diary');
+  } catch (err) {
+    if (err.inner) {
+      const newErrors = {};
 
-  dispatch(loginUser(formData));
+      err.inner.forEach(error => {
+        newErrors[error.path] = error.message;
+      });
+
+      setErrors(newErrors);
+      return;
+    }
+  }
 };
 
   return (

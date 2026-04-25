@@ -138,7 +138,6 @@
     border-radius: 30px;
     background: var(--color-primary);
     box-shadow: var(--shadow-btn);
-    border-radius: 30px;
     color: var(--color-white);
     font-weight: var(--font-weight-bold);
     cursor: pointer;
@@ -191,7 +190,7 @@
 
 @media screen and (min-width: 768px) {
     .formContainer {
-        width: 240px;
+        width: 415px;
         height: auto;
         border: none;
         padding: 0;

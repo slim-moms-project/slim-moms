@@ -52,10 +52,10 @@
 
     .decor {
         background-image:
-            url('src/assets/images/Strawberry-Big-PNG.png'),
-            url('src/assets/images/Layer-42.png'),
-            url('src/assets/images/Layer-9.png'),
-            url('src/assets/images/vector-3.png');
+            url('../../assets/images/Strawberry-Big-PNG.png'),
+            url('../../assets/images/Layer-42.png'),
+            url('../../assets/images/Layer-9.png'),
+            url('../../assets/images/vector-3.png');
 
         background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
 
@@ -93,10 +93,10 @@
 
     .decor {
         background-image:
-            url('src/assets/images/Layer-4.png'),
-            url('src/assets/images/Strawberry-Big.png'),
-            url('src/assets/images/Banana.png'),
-            url('src/assets/images/Vector-3.png');
+            url('../../assets/images/Layer-4.png'),
+            url('../../assets/images/Strawberry-Big.png'),
+            url('../../assets/images/Banana.png'),
+            url('../../assets/images/vector-3.png');
 
         background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
 

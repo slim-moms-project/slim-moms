@@ -14,11 +14,10 @@ export const registerUser = createAsyncThunk(
     thunkAPI.dispatch(showLoader());
 
     try {
-     const { data } = await axiosInstance.post('/api/auth/register', credentials);
-
-      if (data.token) {
-        setAuthHeader(data.token);
-      }
+      const { data } = await axiosInstance.post(
+        '/api/auth/register',
+        credentials
+      );
 
       toast.success(data.message || 'Account created successfully!');
 
