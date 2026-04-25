@@ -3,7 +3,7 @@ import * as yup from 'yup';
 const numberField = (label, min, max) =>
   yup
     .number()
-    .transform(value => (value === '' ? undefined : value))
+    .transform((value, originalValue) => originalValue === '' ? undefined : value)
     .typeError(`${label} must be a number`)
     .min(min, `Min ${min}`)
     .max(max, `Max ${max}`)
@@ -19,7 +19,7 @@ export const calculatorValidationSchema = yup.object({
 
   desiredWeight: yup
     .number()
-    .transform(value => (value === '' ? undefined : value))
+    .transform((value, originalValue) => originalValue === '' ? undefined : value)
     .typeError('Desired weight must be a number')
     .min(20, 'Min 20 kg')
     .max(500, 'Max 500 kg')
@@ -29,18 +29,15 @@ export const calculatorValidationSchema = yup.object({
       'Desired weight must be realistic and different from current weight',
       function (value) {
         const { currentWeight } = this.parent;
-
         if (!value || !currentWeight) return true;
-
         const diff = Math.abs(value - currentWeight);
-
         return diff > 0 && diff <= 100;
       }
     ),
 
   bloodType: yup
     .number()
-    .transform(value => Number(value))
+    .transform((value, originalValue) => originalValue === '' ? undefined : Number(originalValue))
     .oneOf([1, 2, 3, 4], 'Select a blood type')
     .required('Blood type is required'),
 });

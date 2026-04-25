@@ -1,28 +1,23 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 import axiosInstance from '../../services/api/axiosInstance.js';
 import { showLoader, hideLoader } from '../global/globalSlice.js';
 
 export const calculateDailyCalories = createAsyncThunk(
-  'calculator/calculate',
+  'calculator/calculateDailyCalories',
   async (formData, thunkAPI) => {
     thunkAPI.dispatch(showLoader());
     try {
-      const payload = {
-        weight: formData.currentWeight,
-        height: formData.height,
-        age: formData.age,
-        desiredWeight: formData.desiredWeight,
-        bloodType: formData.bloodType,
-      };
-
       const { data } = await axiosInstance.post(
         '/products/calculate-daily-calories',
-        payload
+        formData,
       );
-
-      return data.data;
+      toast.success('Daily calories calculated successfully');
+      return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data?.message);
+      const message = error.response?.data?.message ?? 'Calculation failed';
+      toast.error(message);
+      return thunkAPI.rejectWithValue(message);
     } finally {
       thunkAPI.dispatch(hideLoader());
     }
