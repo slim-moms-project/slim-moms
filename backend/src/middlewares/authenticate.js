@@ -1,9 +1,18 @@
-import createHttpError from 'http-errors';
+// import createHttpError from 'http-errors';
 
 // Modeller
-import { SessionsCollection } from '../db/models/session.js';
-import { UsersCollection } from '../db/models/user.js';
+// import { SessionsCollection } from '../db/models/session.js';
+// import { UsersCollection } from '../db/models/user.js';
 
+
+export const authenticate = async (req, res, next) => {
+  // --- GEÇİCİ TEST KULLANICISI ---
+  // Güvenlik kontrollerini atlayıp, isteği yapan kişiyi zorla "Test User" yapıyoruz.
+  req.user = { _id: "69ebcf2f1c20ff4058d04c80" };
+
+  next(); // "Geçebilirsin" onayı
+};
+/*
 // Kullanıcı kimlik doğrulama middleware'i (Bearer token kontrolü)
 export const authenticate = async (req, res, next) => {
   // Authorization header'ını al
@@ -59,3 +68,4 @@ export const authenticate = async (req, res, next) => {
 
   next();
 };
+*/

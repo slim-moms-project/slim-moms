@@ -1,0 +1,26 @@
+.logoWrapper {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  gap: 10px; /* İkon ile yazı arasındaki şık boşluk */
+}
+
+/* Kadın Silüeti İkonu (Resim) */
+.iconImg {
+  height: 44px; /* Tasarımdaki orijinal yükseklik */
+  width: auto;  /* Resmin kendi orantısını koruması için */
+}
+
+/* SlimMom Yazısı (Orijinal viewBox: 106x16) */
+.logoText {
+  width: 106px;
+  height: 16px;
+  flex-shrink: 0;
+  display: block; /* Bunu ekleyip garantileyelim */
+}
+/* Mobilde yazıyı gizleyip sadece ikonu göstermek için (SlimMom Tasarımına Uygun) */
+@media screen and (max-width: 767px) {
+  .logoText {
+    display: none;
+  }
+}

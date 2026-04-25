@@ -1,0 +1,117 @@
+/* --- MOBİL İLK YAKLAŞIM (Base Styles) --- */
+.intake-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+  max-width: 100%;
+}
+
+.intake-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #212121;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.intake-rate {
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #E0E0E0;
+  width: 100%;
+}
+
+.rate-number {
+  font-size: 48px;
+  font-weight: 700;
+  color: #264061; /* Tasarımdaki lacivert/koyu mavi ton */
+  letter-spacing: 0.04em;
+}
+
+.rate-unit {
+  font-size: 16px;
+  font-weight: 700;
+  color: #264061;
+}
+
+.forbidden-foods-wrapper {
+  width: 100%;
+  text-align: left; /* Listeyi sola yaslıyoruz */
+  margin-bottom: 40px;
+}
+
+.forbidden-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #212121;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.forbidden-list {
+  padding-left: 20px;
+  margin: 0;
+  color: #9B9FAA;
+  font-size: 14px;
+  line-height: 1.5;
+  max-height: 120px; /* Liste çok uzarsa modalı bozmasın diye scroll */
+  overflow-y: auto;
+}
+
+.forbidden-item {
+  margin-bottom: 10px;
+}
+
+.no-forbidden-text {
+  color: #9B9FAA;
+  font-size: 14px;
+}
+
+.start-btn {
+  background-color: #FC842D; /* Projenin ana turuncu rengi */
+  color: #FFFFFF;
+  border: none;
+  border-radius: 30px;
+  padding: 13px 50px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0px 4px 10px rgba(252, 132, 45, 0.5);
+  transition: transform 0.2s ease;
+  width: 100%; /* Mobilde tam genişlik */
+}
+
+.start-btn:hover {
+  transform: scale(1.05);
+}
+
+/* --- TABLET VE ÜSTÜ --- */
+@media screen and (min-width: 768px) {
+  .intake-container {
+    padding: 60px 80px; /* Tablette modal içi boşluklar artar */
+  }
+
+  .intake-title {
+    font-size: 26px; /* Başlık büyür */
+  }
+
+  .rate-number {
+    font-size: 48px;
+  }
+
+  .start-btn {
+    width: auto; /* Genişlik sadece metin kadar olur */
+    min-width: 210px;
+  }
+}
+
+/* --- DESKTOP --- */
+@media screen and (min-width: 1280px) {
+  .intake-container {
+    padding: 64px 80px;
+  }
+
+  /* Desktop için ekstradan ince ayarlar gerekiyorsa buraya eklenebilir */
+}

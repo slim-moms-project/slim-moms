@@ -1,0 +1,174 @@
+/* --- MOBİL İLK YAKLAŞIM --- */
+.calculator-form-container {
+  width: 100%;
+}
+
+.calculator-title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #212121;
+  margin-bottom: 30px;
+}
+
+.form-inputs-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.input-column {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Floating Label Mantığı İçin Input Stilleri */
+.input-group {
+  position: relative;
+  width: 100%;
+}
+
+.input-group input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #E0E0E0;
+  padding: 8px 0;
+  font-size: 14px;
+  background-color: transparent;
+  outline: none;
+  color: #212121;
+}
+
+.input-group label {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  font-size: 14px;
+  color: #9B9FAA;
+  transition: all 0.3s ease;
+  pointer-events: none; /* Tıklamaların altındaki input'a geçmesini sağlar */
+}
+
+/* Kullanıcı inputa tıkladığında veya içi dolu olduğunda label yukarı kayar */
+.input-group input:focus ~ label,
+.input-group input:not(:placeholder-shown) ~ label {
+  top: -15px;
+  font-size: 12px;
+  color: #FC842D;
+}
+
+/* Radio Button Stilleri (Kan Grubu) */
+.radio-group-wrapper {
+  margin-top: -10px; /* Label hizalamasını düzeltmek için ince ayar */
+}
+
+.radio-title {
+  font-size: 14px;
+  color: #9B9FAA;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #E0E0E0;
+  padding-bottom: 8px;
+  width: 100%;
+}
+
+.radio-group {
+  display: flex;
+  gap: 20px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #9B9FAA;
+}
+
+/* Standart Radio'yu gizleyip custom olanı tasarlıyoruz */
+.radio-label input[type="radio"] {
+  display: none;
+}
+
+.custom-radio {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #E0E0E0;
+  border-radius: 50%;
+  position: relative;
+  transition: border-color 0.2s ease;
+}
+
+/* Seçili Kan Grubu Tasarımı */
+.radio-label input[type="radio"]:checked ~ .custom-radio {
+  border-color: #FC842D;
+}
+
+.radio-label input[type="radio"]:checked ~ .custom-radio::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background-color: #FC842D;
+  border-radius: 50%;
+}
+
+.radio-label input[type="radio"]:checked ~ .custom-radio {
+  border-color: #FC842D;
+}
+
+.radio-label input[type="radio"]:checked {
+  color: #FC842D;
+}
+
+.submit-btn {
+  margin-top: 40px;
+  background-color: #FC842D;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 30px;
+  padding: 13px 50px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0px 4px 10px rgba(252, 132, 45, 0.5);
+  transition: transform 0.2s ease;
+  width: 100%;
+}
+
+.submit-btn:hover {
+  transform: scale(1.05);
+}
+
+/* --- TABLET VE ÜSTÜ --- */
+@media screen and (min-width: 768px) {
+  .calculator-title {
+    font-size: 34px;
+    margin-bottom: 60px;
+  }
+
+  .form-inputs-wrapper {
+    flex-direction: row; /* Tablette iki kolon yan yana geçer */
+    gap: 30px;
+  }
+
+  .input-column {
+    width: 240px; /* Tasarımdaki kolon genişlikleri */
+  }
+
+  .submit-btn {
+    width: auto;
+    margin-top: 60px;
+  }
+}
+
+/* --- DESKTOP --- */
+@media screen and (min-width: 1280px) {
+  .calculator-form-container {
+    width: 600px; /* Masaüstünde formu belli bir genişlikte tutar */
+  }
+}

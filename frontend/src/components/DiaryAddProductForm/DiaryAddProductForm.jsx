@@ -1,10 +1,117 @@
-// import css from './DiaryAddProductForm.module.css';
+// frontend/src/components/DiaryAddProductForm/DiaryAddProductForm.jsx
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addProduct } from '../../redux/diary/diaryOperations';
+import { selectDiaryDate } from '../../redux/diary/diarySelectors';
+import axiosInstance from '../../services/api/axiosInstance';
+import styles from './DiaryAddProductForm.module.css';
 
 const DiaryAddProductForm = () => {
+  const dispatch = useDispatch();
+  const date = useSelector(selectDiaryDate);
+  const [query, setQuery] = useState('');
+  const [grams, setGrams] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  useEffect(() => {
+    if (query.length < 2) {
+      return;
+    }
+
+    const fetchProducts = async () => {
+      try {
+        const { data } = await axiosInstance.get(`/product?search=${query}`);
+        const productsArray = data?.data?.data || data?.data || [];
+        setSuggestions(productsArray)
+      } catch (error) {
+        console.error('Ürünler getirilirken hata oluştu:', error);
+      }
+    };
+
+    const timeoutId = setTimeout(() => {
+      fetchProducts();
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [query]);
+
+  const handleSelectProduct = (product) => {
+    setSelectedProduct(product);
+    setQuery(product.title);
+    setSuggestions([]);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!selectedProduct || !grams) return;
+
+    const amountNumber = Number(grams);
+    const calculatedCalories = Math.round((selectedProduct.calories / 100) * amountNumber);
+    dispatch(addProduct({
+      date: date,
+      productId: selectedProduct._id,
+      amount: amountNumber,
+      calories: calculatedCalories
+    }));
+
+    setQuery('');
+    setGrams('');
+    setSelectedProduct(null);
+  };
+
   return (
-    <div>
-      <p></p>
-    </div>
+    <form className={styles.diaryForm} onSubmit={handleSubmit}>
+      <div className={styles.inputWrapper}>
+        <input
+          type="text"
+          className={styles.input} /* CSS'teki .input class'ına bağlandı */
+          placeholder="Enter product name"
+          value={query}
+          onChange={(e) => {
+            const value = e.target.value;
+            setQuery(value);
+            setSelectedProduct(null);
+            if (value.length < 2) {
+              setSuggestions([]);
+            }
+          }}
+          required
+        />
+        {/* Arama Sonuçları Dropdown */}
+        {suggestions.length > 0 && (
+          <ul className={styles.suggestionsDropdown}>
+            {suggestions.map((product) => (
+              <li
+                key={product._id}
+                className={styles.suggestionItem} /* styles objesine bağlandı */
+                onClick={() => handleSelectProduct(product)}
+              >
+                {product.title}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      <div className={styles.inputWrapper}>
+        <input
+          type="number"
+          placeholder="Grams"
+          className={styles.inputGrams} /* CSS'teki .inputGrams class'ına bağlandı */
+          value={grams}
+          onChange={(e) => setGrams(e.target.value)}
+          required
+          min="1"
+        />
+      </div>
+
+      {/* Buton ve içindeki ikonlar styles objesine bağlandı */}
+      <button type="submit" className={styles.addBtn} disabled={!selectedProduct || !grams}>
+        <span className={styles.desktopPlus}>+</span>
+        <span className={styles.mobileAddText}>Add</span>
+      </button>
+    </form>
   );
 };
 

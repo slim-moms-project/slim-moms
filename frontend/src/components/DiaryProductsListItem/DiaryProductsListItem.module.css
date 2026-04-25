@@ -1,0 +1,42 @@
+/* frontend/src/components/DiaryProductsListItem/DiaryProductsListItem.module.css */
+
+.productListItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 0;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.itemName {
+  width: 40%;
+  text-align: left;
+  color: #212121;
+}
+
+.itemGrams {
+  width: 20%;
+  text-align: right;
+  color: #212121;
+}
+
+.itemCalories {
+  width: 30%;
+  text-align: right;
+  color: #212121;
+}
+
+.deleteBtn {
+  background: transparent;
+  border: none;
+  color: #9B9FAA;
+  cursor: pointer;
+  font-size: 16px;
+  width: 10%;
+  text-align: right;
+  transition: color 0.2s ease;
+}
+
+.deleteBtn:hover {
+  color: #FC842D;
+}

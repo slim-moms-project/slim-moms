@@ -1,0 +1,36 @@
+/* frontend/src/components/Navigation/Navigation.module.css */
+.navContainer {
+  display: flex;
+  gap: 20px;
+}
+
+.navLink {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  color: #9B9FAA;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+
+.navLink:hover {
+  color: #212121;
+}
+
+/* React Router'ın aktif linke otomatik eklediği 'active' class'ı için */
+.activeLink {
+  color: #212121;
+}
+
+/* Mobilde ve tablette varsayılan olarak gizli (Hamburger menü içinde açılacak) */
+@media screen and (max-width: 1279px) {
+  .navContainer {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .navContainer {
+    display: flex; /* Sadece masaüstünde yan yana görünür */
+  }
+}
