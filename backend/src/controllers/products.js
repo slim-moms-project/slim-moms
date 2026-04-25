@@ -147,20 +147,49 @@ export const searchProductsController = async (req, res, next) => {
 
 export const calculateDailyCaloriesController = async (req, res, next) => {
   try {
-    const { age, height, weight, gender, activityLevel } = req.body;
+    const { height, age, currentWeight, desiredWeight, bloodType } = req.body;
 
-    const result = calculateDailyCalories({
-      age: Number(age),
+    const normalizedBloodType = Number(bloodType);
+
+    if (
+      !height ||
+      !age ||
+      !currentWeight ||
+      !desiredWeight ||
+      !normalizedBloodType
+    ) {
+      return res.status(400).json({
+        status: 400,
+        message:
+          'height, age, currentWeight, desiredWeight ve bloodType alanları zorunludur',
+      });
+    }
+
+    if (![1, 2, 3, 4].includes(normalizedBloodType)) {
+      return res.status(400).json({
+        status: 400,
+        message: 'bloodType yalnızca 1, 2, 3 veya 4 olabilir',
+      });
+    }
+
+    const dailyCalories = calculateDailyCalories({
       height: Number(height),
-      weight: Number(weight),
-      gender,
-      activityLevel,
+      age: Number(age),
+      currentWeight: Number(currentWeight),
+      desiredWeight: Number(desiredWeight),
     });
+
+    const notRecommendedProducts = await Product.find({
+      [`groupBloodNotAllowed.${normalizedBloodType}`]: true,
+    }).select('title category calories groupBloodNotAllowed');
 
     res.status(200).json({
       status: 200,
       message: 'Daily calories calculated successfully',
-      data: result,
+      data: {
+        dailyCalories,
+        notRecommendedProducts,
+      },
     });
   } catch (error) {
     if (error.status === 400) {
