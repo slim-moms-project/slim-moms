@@ -1,6 +1,5 @@
 import { Schema, model } from 'mongoose';
 
-// Product modeli oluşturulacak
 const productSchema = new Schema(
   {
     title: {
@@ -10,7 +9,6 @@ const productSchema = new Schema(
     },
     category: {
       type: String,
-      required: true,
       trim: true,
     },
     calories: {
@@ -22,6 +20,10 @@ const productSchema = new Schema(
       type: Number,
       default: 100,
       min: 0,
+    },
+    groupBloodNotAllowed: {
+      type: Object,
+      required: true,
     },
   },
   {
