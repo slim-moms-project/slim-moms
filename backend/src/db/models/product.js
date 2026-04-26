@@ -22,7 +22,7 @@ const productSchema = new Schema(
       min: 0,
     },
     groupBloodNotAllowed: {
-      type: Object,
+      type: [Boolean],
       required: true,
     },
   },
