@@ -1,19 +1,16 @@
-// frontend/src/components/DailyCaloriesForm/DailyCaloriesForm.jsx
 import { useState } from 'react';
-//import { useDispatch } from 'react-redux';
-//Kendi redux yapına göre aşağıdaki importu güncelle
-//import { calculateDailyRate } from '../../redux/calculator/calculatorOperations';
-import './DailyCaloriesForm.module.css';
+import { useDispatch } from 'react-redux';
+import { calculateDailyCalories } from '../../redux/calculator/calculatorOperations';
+import styles from './DailyCaloriesForm.module.css';
 
 const DailyCaloriesForm = ({ openModal }) => {
-  // const dispatch = useDispatch(); //
+  const dispatch = useDispatch();
 
-  // Form State'leri
   const [height, setHeight] = useState('');
   const [age, setAge] = useState('');
   const [currentWeight, setCurrentWeight] = useState('');
   const [desiredWeight, setDesiredWeight] = useState('');
-  const [bloodType, setBloodType] = useState('1'); // Varsayılan kan grubu: 1
+  const [bloodType, setBloodType] = useState('1');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,19 +18,15 @@ const DailyCaloriesForm = ({ openModal }) => {
     const formData = {
       height: Number(height),
       age: Number(age),
-      weight: Number(currentWeight),
+      currentWeight: Number(currentWeight),
       desiredWeight: Number(desiredWeight),
       bloodType: Number(bloodType),
     };
 
-    // 2. Linter hatasını önlemek ve veriyi görmek için formData'yı konsola yazdırıyoruz
-  console.log('Backend e gidecek veri:', formData);
-
     try {
-      // Backend'e verileri gönder (Kendi thunk fonksiyonunu buraya yaz)
-      // const result = await dispatch(calculateDailyRate(formData)).unwrap();
+      await dispatch(calculateDailyCalories(formData)).unwrap();
 
-      // İşlem başarılı olursa modalı aç (Bu fonksiyonu props'tan alıyoruz)
+      // İşlem başarılı olursa modalı aç
       if (openModal) {
         openModal();
       }
@@ -43,16 +36,16 @@ const DailyCaloriesForm = ({ openModal }) => {
   };
 
   return (
-    <div className="calculator-form-container">
-      <h2 className="calculator-title">
+    <div className={styles.calculatorFormContainer}>
+      <h2 className={styles.calculatorTitle}>
         Hemen kilo vermek için günlük kalori ihtiyacınızı hesaplayın
       </h2>
 
-      <form className="calculator-form" onSubmit={handleSubmit}>
-        <div className="form-inputs-wrapper">
+      <form className={styles.calculatorForm} onSubmit={handleSubmit}>
+        <div className={styles.formInputsWrapper}>
           {/* Sol Kolon */}
-          <div className="input-column">
-            <div className="input-group">
+          <div className={styles.inputColumn}>
+            <div className={styles.inputGroup}>
               <input
                 type="number"
                 id="height"
@@ -64,7 +57,7 @@ const DailyCaloriesForm = ({ openModal }) => {
               <label htmlFor="height">Boy *</label>
             </div>
 
-            <div className="input-group">
+            <div className={styles.inputGroup}>
               <input
                 type="number"
                 id="age"
@@ -76,7 +69,7 @@ const DailyCaloriesForm = ({ openModal }) => {
               <label htmlFor="age">Yaş *</label>
             </div>
 
-            <div className="input-group">
+            <div className={styles.inputGroup}>
               <input
                 type="number"
                 id="currentWeight"
@@ -90,8 +83,8 @@ const DailyCaloriesForm = ({ openModal }) => {
           </div>
 
           {/* Sağ Kolon */}
-          <div className="input-column">
-            <div className="input-group">
+          <div className={styles.inputColumn}>
+            <div className={styles.inputGroup}>
               <input
                 type="number"
                 id="desiredWeight"
@@ -104,11 +97,11 @@ const DailyCaloriesForm = ({ openModal }) => {
             </div>
 
             {/* Kan Grubu Seçimi */}
-            <div className="radio-group-wrapper">
-              <p className="radio-title">Kan Grubu *</p>
-              <div className="radio-group">
+            <div className={styles.radioGroupWrapper}>
+              <p className={styles.radioTitle}>Kan Grubu *</p>
+              <div className={styles.radioGroup}>
                 {[1, 2, 3, 4].map((type) => (
-                  <label key={type} className="radio-label">
+                  <label key={type} className={styles.radioLabel}>
                     <input
                       type="radio"
                       name="bloodType"
@@ -116,7 +109,7 @@ const DailyCaloriesForm = ({ openModal }) => {
                       checked={bloodType === String(type)}
                       onChange={(e) => setBloodType(e.target.value)}
                     />
-                    <span className="custom-radio"></span>
+                    <span className={styles.customRadio}></span>
                     {type}
                   </label>
                 ))}
@@ -125,7 +118,7 @@ const DailyCaloriesForm = ({ openModal }) => {
           </div>
         </div>
 
-        <button type="submit" className="submit-btn">
+        <button type="submit" className={styles.submitBtn}>
           Hesapla
         </button>
       </form>

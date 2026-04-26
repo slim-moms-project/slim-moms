@@ -1,5 +1,5 @@
 /* --- MOBİL İLK YAKLAŞIM (Base Styles) --- */
-.intake-container {
+.intakeContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,7 +8,7 @@
   max-width: 100%;
 }
 
-.intake-title {
+.intakeTitle {
   font-size: 18px;
   font-weight: 700;
   color: #212121;
@@ -16,33 +16,33 @@
   line-height: 1.4;
 }
 
-.intake-rate {
+.intakeRate {
   margin-bottom: 30px;
   padding-bottom: 30px;
   border-bottom: 1px solid #E0E0E0;
   width: 100%;
 }
 
-.rate-number {
+.rateNumber {
   font-size: 48px;
   font-weight: 700;
   color: #264061; /* Tasarımdaki lacivert/koyu mavi ton */
   letter-spacing: 0.04em;
 }
 
-.rate-unit {
+.rateUnit {
   font-size: 16px;
   font-weight: 700;
   color: #264061;
 }
 
-.forbidden-foods-wrapper {
+.forbiddenFoodsWrapper {
   width: 100%;
   text-align: left; /* Listeyi sola yaslıyoruz */
   margin-bottom: 40px;
 }
 
-.forbidden-title {
+.forbiddenTitle {
   font-size: 14px;
   font-weight: 700;
   color: #212121;
@@ -50,7 +50,7 @@
   text-transform: uppercase;
 }
 
-.forbidden-list {
+.forbiddenList {
   padding-left: 20px;
   margin: 0;
   color: #9B9FAA;
@@ -60,16 +60,16 @@
   overflow-y: auto;
 }
 
-.forbidden-item {
+.forbiddenItem {
   margin-bottom: 10px;
 }
 
-.no-forbidden-text {
+.noForbiddenText {
   color: #9B9FAA;
   font-size: 14px;
 }
 
-.start-btn {
+.startBtn {
   background-color: #FC842D; /* Projenin ana turuncu rengi */
   color: #FFFFFF;
   border: none;
@@ -83,25 +83,25 @@
   width: 100%; /* Mobilde tam genişlik */
 }
 
-.start-btn:hover {
+.startBtn:hover {
   transform: scale(1.05);
 }
 
 /* --- TABLET VE ÜSTÜ --- */
 @media screen and (min-width: 768px) {
-  .intake-container {
+  .intakeContainer {
     padding: 60px 80px; /* Tablette modal içi boşluklar artar */
   }
 
-  .intake-title {
+  .intakeTitle {
     font-size: 26px; /* Başlık büyür */
   }
 
-  .rate-number {
+  .rateNumber {
     font-size: 48px;
   }
 
-  .start-btn {
+  .startBtn {
     width: auto; /* Genişlik sadece metin kadar olur */
     min-width: 210px;
   }
@@ -109,9 +109,7 @@
 
 /* --- DESKTOP --- */
 @media screen and (min-width: 1280px) {
-  .intake-container {
+  .intakeContainer {
     padding: 64px 80px;
   }
-
-  /* Desktop için ekstradan ince ayarlar gerekiyorsa buraya eklenebilir */
 }

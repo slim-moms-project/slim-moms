@@ -1,4 +1,3 @@
-// frontend/src/components/DiaryAddProductForm/DiaryAddProductForm.jsx
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from '../../redux/diary/diaryOperations';
@@ -6,7 +5,7 @@ import { selectDiaryDate } from '../../redux/diary/diarySelectors';
 import axiosInstance from '../../services/api/axiosInstance';
 import styles from './DiaryAddProductForm.module.css';
 
-const DiaryAddProductForm = () => {
+const DiaryAddProductForm = ({ closeModal }) => {
   const dispatch = useDispatch();
   const date = useSelector(selectDiaryDate);
   const [query, setQuery] = useState('');
@@ -23,9 +22,9 @@ const DiaryAddProductForm = () => {
       try {
         const { data } = await axiosInstance.get(`/product?search=${query}`);
         const productsArray = data?.data?.data || data?.data || [];
-        setSuggestions(productsArray)
-      } catch (error) {
-        console.error('Ürünler getirilirken hata oluştu:', error);
+        setSuggestions(productsArray);
+      } catch{
+        // Reviewer'ın 8. madde uyarısı
       }
     };
 
@@ -58,6 +57,10 @@ const DiaryAddProductForm = () => {
     setQuery('');
     setGrams('');
     setSelectedProduct(null);
+
+    if (closeModal) {
+      closeModal();
+    }
   };
 
   return (
@@ -65,7 +68,7 @@ const DiaryAddProductForm = () => {
       <div className={styles.inputWrapper}>
         <input
           type="text"
-          className={styles.input} /* CSS'teki .input class'ına bağlandı */
+          className={styles.input}
           placeholder="Enter product name"
           value={query}
           onChange={(e) => {
@@ -84,7 +87,7 @@ const DiaryAddProductForm = () => {
             {suggestions.map((product) => (
               <li
                 key={product._id}
-                className={styles.suggestionItem} /* styles objesine bağlandı */
+                className={styles.suggestionItem}
                 onClick={() => handleSelectProduct(product)}
               >
                 {product.title}
@@ -98,7 +101,7 @@ const DiaryAddProductForm = () => {
         <input
           type="number"
           placeholder="Grams"
-          className={styles.inputGrams} /* CSS'teki .inputGrams class'ına bağlandı */
+          className={styles.inputGrams}
           value={grams}
           onChange={(e) => setGrams(e.target.value)}
           required
@@ -106,7 +109,6 @@ const DiaryAddProductForm = () => {
         />
       </div>
 
-      {/* Buton ve içindeki ikonlar styles objesine bağlandı */}
       <button type="submit" className={styles.addBtn} disabled={!selectedProduct || !grams}>
         <span className={styles.desktopPlus}>+</span>
         <span className={styles.mobileAddText}>Add</span>

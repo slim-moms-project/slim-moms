@@ -11,6 +11,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  position: relative; /* KRİTİK EKLENTİ BURASI! Dropdown'ın referans noktasını sabitler */
 }
 
 .formInput {
@@ -67,7 +68,7 @@
 
 /* --- BUTON STİLLERİ (MOBİL İÇİN GENİŞ VE 'ADD' YAZILI HALİ) --- */
 .addBtn {
-  width: 100%;             /* Mobilde tam genişlik */
+  width: 100%;            /* Mobilde tam genişlik */
   max-width: 280px;        /* Çok da devasa olmasın */
   height: 48px;
   border-radius: 30px;     /* Hap şeklinde ovalleştir */

@@ -8,11 +8,9 @@ export const fetchDiary = createAsyncThunk(
   async (date, thunkAPI) => {
     thunkAPI.dispatch(showLoader());
     try {
-      const { data } = await axiosInstance.get(`/diary/${date}`);
+      const { data } = await axiosInstance.get(`/diary?date=${date}`);
       return data;
     } catch (error) {
-      // EĞER HATA 404 (BULUNAMADI) İSE, BU SADECE GÜNLÜK BOŞ DEMEKTİR.
-      // Ekranda gereksiz kırmızı hata (toast) göstermiyoruz!
       if (error.response?.status !== 404) {
         toast.error(error.response?.data?.message ?? 'Failed to load diary');
       }
@@ -45,10 +43,6 @@ export const removeProduct = createAsyncThunk(
   async ({ productId }, thunkAPI) => {
     thunkAPI.dispatch(showLoader());
     try {
-      // ESKİ VE HATALI HALİ:
-      // await axiosInstance.delete(`/diary/${dayInfoId}/${productId}`);
-
-      // YENİ VE BÜYÜK İHTİMALLE DOĞRU OLAN HALİ (Sadece ID'yi gönderiyoruz):
       await axiosInstance.delete(`/diary/${productId}`);
 
       toast.success('Product removed');

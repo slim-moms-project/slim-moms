@@ -1,21 +1,15 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import Logo from '../Logo/Logo'; // Logo dosyanın yolu doğru mu kontrol et
+import Logo from '../Logo/Logo';
+import Navigation from '../Navigation/Navigation';
+import UserInfo from '../UserInfo/UserInfo';
 import styles from './Header.module.css';
 
 const Header = () => {
-  // Menünün açık olup olmadığını tutan state
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Menüyü açıp kapama fonksiyonu
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  // Linke tıklandığında menüyü kapatma fonksiyonu
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <header className={styles.header}>
@@ -26,23 +20,16 @@ const Header = () => {
           <Logo />
         </div>
 
-        {/* Masaüstü Navigasyon (Tablette ve Mobilde Gizlenir) */}
         <div className={styles.desktopNav}>
           <div className={styles.separator}></div>
-          <nav className={styles.navLinks}>
-            <NavLink to="/diary" className={styles.link}>DIARY</NavLink>
-            <NavLink to="/calculator" className={styles.link}>CALCULATOR</NavLink>
-          </nav>
+          <Navigation />
         </div>
 
         {/* Sağ Taraf: Kullanıcı Bilgileri ve Hamburger Menü */}
         <div className={styles.headerRight}>
 
-          {/* UserInfo (Mobilde gizlenir, tablette görünür) */}
-          <div className={styles.userInfo}>
-            <span className={styles.userName}>Nic</span>
-            <div className={styles.userSeparator}></div>
-            <button className={styles.exitBtn}>Exit</button>
+          <div className={styles.userInfoWrapper}>
+            <UserInfo />
           </div>
 
           {/* Hamburger / Kapat Butonu (Sadece Tablet ve Mobilde Görünür) */}

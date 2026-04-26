@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'; // useState eklendi
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDiary } from '../../redux/diary/diaryOperations';
 import { selectDiaryDate } from '../../redux/diary/diarySelectors';
@@ -12,73 +12,67 @@ const DiaryPage = () => {
   const dispatch = useDispatch();
   const date = useSelector(selectDiaryDate);
 
-  // --- YENİ EKLENEN KISIM: Mobil Görünüm Kontrolleri ---
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  // Sadece modalın açık/kapalı durumunu tutuyoruz (Ekran boyutunu değil!)
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-
-  // Ekran boyutu değiştiğinde isMobile durumunu güncelle
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-  // -----------------------------------------------------
 
   useEffect(() => {
     dispatch(fetchDiary(date));
   }, [dispatch, date]);
 
+  // Form başarıyla gönderildiğinde modalı kapatacak fonksiyon
+  const handleCloseModal = () => {
+    setIsAddModalOpen(false);
+  };
+
   return (
     <div className={styles.diaryPageContainer}>
 
-      {/* EĞER EKRAN MOBİLSE VE '+' BUTONUNA BASILDIYSA: */}
-      {isMobile && isAddModalOpen ? (
+      {/* MOBİL MODAL: Sadece açık olduğunda render edilir */}
+      {isAddModalOpen && (
         <div className={styles.mobileModalContainer}>
           <div className={styles.modalHeader}>
-             {/* Geri dönme butonu */}
             <button
               type="button"
               className={styles.backButton}
-              onClick={() => setIsAddModalOpen(false)}
+              onClick={handleCloseModal}
             >
               ←
             </button>
           </div>
-          {/* Sadece arama formunu gösteriyoruz */}
-          <DiaryAddProductForm />
+          {/* Modalı kapatma fonksiyonunu forma yolluyoruz */}
+          <DiaryAddProductForm closeModal={handleCloseModal} />
         </div>
-      ) : (
-
-        // EĞER MASAÜSTÜNDEYSEK VEYA MODAL KAPALIYSA (Normal Görünüm):
-        <>
-          <div className={styles.diaryMainContent}>
-            <DiaryDateCalendar />
-
-            {/* Masaüstündeysek formu direkt ekranda göster */}
-            {!isMobile && <DiaryAddProductForm />}
-
-            <DiaryProductsList />
-
-            {/* Mobildeysek ve modal kapalıysa ekranın altına '+' butonu koy */}
-            {isMobile && (
-              <div className={styles.floatingBtnWrapper}>
-                <button
-                  type="button"
-                  className={styles.floatingAddButton}
-                  onClick={() => setIsAddModalOpen(true)}
-                >
-                  +
-                </button>
-              </div>
-            )}
-          </div>
-
-          <div className={styles.diarySidebar}>
-            <RightSideBar />
-          </div>
-        </>
-
       )}
+
+      {/* ANA İÇERİK: Mobilde modal açıkken arkaplanı CSS ile gizleyeceğiz */}
+      <div className={`${styles.contentWrapper} ${isAddModalOpen ? styles.hideOnMobile : ''}`}>
+        <div className={styles.diaryMainContent}>
+          <DiaryDateCalendar />
+
+          {/* MASAÜSTÜ FORM: CSS ile sadece tablet ve desktop'ta gösterilecek */}
+          <div className={styles.desktopFormWrapper}>
+            <DiaryAddProductForm />
+          </div>
+
+          <DiaryProductsList />
+
+          {/* MOBİL FLOAT BUTON: CSS ile sadece mobilde gösterilecek */}
+          <div className={styles.floatingBtnWrapper}>
+            <button
+              type="button"
+              className={styles.floatingAddButton}
+              onClick={() => setIsAddModalOpen(true)}
+            >
+              +
+            </button>
+          </div>
+        </div>
+
+        <div className={styles.diarySidebar}>
+          <RightSideBar />
+        </div>
+      </div>
+
     </div>
   );
 };

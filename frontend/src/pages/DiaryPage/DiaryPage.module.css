@@ -1,12 +1,15 @@
-/* frontend/src/pages/DiaryPage/DiaryPage.module.css */
-
-/* --- MOBİL İLK YAKLAŞIM (Base Styles - Alt Alta) --- */
+/* --- MOBİL İLK YAKLAŞIM (Base Styles) --- */
 .diaryPageContainer {
-  display: flex;
-  flex-direction: column; /* Mobilde alt alta dizilir */
   min-height: calc(100vh - 80px);
   max-width: 1280px;
   margin: 0 auto;
+}
+
+/* Yeni eklediğimiz sarıcı: Ana içerik ve Sidebar'ı tutar */
+.contentWrapper {
+  display: flex;
+  flex-direction: column; /* Mobilde alt alta dizilir */
+  width: 100%;
 }
 
 .diaryMainContent {
@@ -20,26 +23,39 @@
   padding: 40px 20px;
 }
 
-/* ... (Modal ve Floating Buton CSS'lerin aynı kalabilir, buraya dokunmadım) ... */
+/* --- GÖRÜNÜRLÜK (VISIBILITY) CLASS'LARI (7. MADDE İÇİN EKLENDİ) --- */
+.desktopFormWrapper {
+  display: none; /* Mobilde masaüstü formu gizli */
+}
+
+.hideOnMobile {
+  display: none !important; /* Mobilde modal açıldığında altındaki içerik gizlenir */
+}
+
+/* ... (Modal ve Floating Buton) ... */
 .mobileModalContainer {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: #fff;
   padding-top: 20px;
 }
+
 .backButton {
   background: none;
   border: none;
   font-size: 24px;
   cursor: pointer;
   margin-bottom: 20px;
+  padding-left: 20px;
 }
+
 .floatingBtnWrapper {
   display: flex;
   justify-content: center;
   margin-top: 20px;
   padding-bottom: 20px;
 }
+
 .floatingAddButton {
   width: 48px;
   height: 48px;
@@ -55,13 +71,9 @@
   box-shadow: 0px 4px 10px rgba(252, 132, 45, 0.5);
 }
 
+
 /* --- TABLET GÖRÜNÜMÜ (768px - 1279px arası) --- */
 @media screen and (min-width: 768px) and (max-width: 1279px) {
-  .diaryPageContainer {
-    /* Tablette yan yana değil, alt alta dizilmeye devam eder */
-    flex-direction: column;
-  }
-
   .diaryMainContent {
     padding: 100px 32px 55px 32px;
   }
@@ -69,37 +81,62 @@
   .diarySidebar {
     padding: 80px 32px;
     background-color: #F0F1F3;
-    /* Yaprak görsellerini tablet için gri alanın sağ alt köşesine ekliyoruz */
     background-image: url('../../assets/images/tablet1x.jpg');
-    /* Not: Eğer dosyanın uzantısı gerçekten .jpeg ise aşağıyı ona göre düzelt */
     background-image: -webkit-image-set(
       url('../../assets/images/tablet1x.jpg') 1x,
       url('../../assets/images/tablet2x.jpg') 2x
     );
     background-repeat: no-repeat;
     background-position: right bottom;
-    background-blend-mode: multiply; /* Resmin beyaz kısımlarını gri arkaplanla eritir */
+    background-blend-mode: multiply;
+  }
+
+  /* Tablette form görünür, artı butonu gizlenir */
+  .desktopFormWrapper {
+    display: block;
+  }
+  .floatingBtnWrapper {
+    display: none;
+  }
+  .hideOnMobile {
+    display: flex !important; /* Tablette gizleme iptal */
   }
 }
+
 /* --- DESKTOP GÖRÜNÜMÜ (Yan Yana ve Ortalanmış) --- */
 @media screen and (min-width: 1280px) {
   .diaryPageContainer {
-    flex-direction: row; /* BURASI KRİTİK: Bilgisayarda yan yana diz! */
-    align-items: stretch; /* Her iki tarafın da boyu eşit uzasın */
     background:
       url('../../assets/images/desktop1x.jpg') no-repeat right bottom,
       linear-gradient(to right, #FFFFFF 0%, #FFFFFF 58%, #F0F1F3 58%, #F0F1F3 100%);
     background-blend-mode: multiply, normal;
   }
 
+  /* BURASI KRİTİK: Bilgisayarda contentWrapper'ı yan yana diziyoruz! */
+  .contentWrapper {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
   .diaryMainContent {
     width: 58%; /* Sol taraf */
-    padding: 140px 80px 50px 16px; /* İSTEDİĞİN O SİHİRLİ BOŞLUK */
+    padding: 140px 80px 50px 16px;
   }
 
   .diarySidebar {
     width: 42%; /* Sağ taraf */
-    padding: 140px 50px 50px 80px; /* Summary yazısı tarihi hizalasın */
-    background-color: transparent; /* Arkaplanı container'ın linear-gradient'ine bıraktık */
+    padding: 140px 50px 50px 80px;
+    background-color: transparent;
+  }
+
+  /* Masaüstünde form görünür, artı butonu gizlenir */
+  .desktopFormWrapper {
+    display: block;
+  }
+  .floatingBtnWrapper {
+    display: none;
+  }
+  .hideOnMobile {
+    display: flex !important;
   }
 }
