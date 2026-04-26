@@ -24,7 +24,7 @@ const calculatorSlice = createSlice({
       .addCase(calculateDailyCalories.fulfilled, (state, action) => {
         state.isLoading = false;
         state.dailyCalories = action.payload.dailyCalories;
-        state.notRecommendedProducts = action.payload.notRecommended;
+        state.notRecommendedProducts = action.payload.notRecommendedProducts;
       })
       .addCase(calculateDailyCalories.rejected, (state, action) => {
         state.isLoading = false;
