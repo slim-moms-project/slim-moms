@@ -75,42 +75,60 @@
  *     DailyCaloriesRequest:
  *       type: object
  *       required:
- *         - age
  *         - height
- *         - weight
- *         - gender
- *         - activityLevel
+ *         - age
+ *         - currentWeight
+ *         - desiredWeight
+ *         - bloodType
  *       properties:
- *         age:
- *           type: integer
- *           example: 25
  *         height:
  *           type: number
  *           example: 180
- *         weight:
+ *         age:
  *           type: number
- *           example: 75
- *         gender:
+ *           example: 25
+ *         currentWeight:
+ *           type: number
+ *           example: 80
+ *         desiredWeight:
+ *           type: number
+ *           example: 70
+ *         bloodType:
+ *           type: number
+ *           enum: [1, 2, 3, 4]
+ *           example: 1
+ *
+ *     NotRecommendedProduct:
+ *       type: object
+ *       properties:
+ *         _id:
  *           type: string
- *           enum: [male, female]
- *           example: male
- *         activityLevel:
+ *           example: 6807d6c3e8f7b2c8190c1234
+ *         title:
  *           type: string
- *           enum: [sedentary, light, moderate, active, veryActive]
- *           example: moderate
+ *           example: Pork
+ *         category:
+ *           type: string
+ *           example: Meat
+ *         calories:
+ *           type: number
+ *           example: 320
+ *         groupBloodNotAllowed:
+ *           type: array
+ *           items:
+ *             type: boolean
+ *           example: [true, false, true, false]
  *
  *     DailyCaloriesResult:
  *       type: object
  *       properties:
- *         bmr:
- *           type: integer
- *           example: 1730
  *         dailyCalories:
- *           type: integer
- *           example: 2682
- *         activityLevel:
- *           type: string
- *           example: moderate
+ *           type: number
+ *           example: 1560
+ *         notRecommendedProducts:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/NotRecommendedProduct'
  *
  *     DailyCaloriesResponse:
  *       type: object
@@ -258,7 +276,7 @@
  * /api/product/calculate-daily-calories:
  *   post:
  *     summary: Calculate daily calories
- *     description: Calculates daily calorie need using body information and activity level.
+ *     description: Calculates daily calories and returns products that are not recommended for the selected blood type.
  *     tags: [Products]
  *     requestBody:
  *       required: true
@@ -277,8 +295,17 @@
  *         description: Invalid request body
  *         content:
  *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/BasicErrorResponse'
+ *             examples:
+ *               missingFields:
+ *                 summary: Missing required fields
+ *                 value:
+ *                   status: 400
+ *                   message: height, age, currentWeight, desiredWeight ve bloodType alanları zorunludur
+ *               invalidBloodType:
+ *                 summary: Invalid blood type
+ *                 value:
+ *                   status: 400
+ *                   message: bloodType yalnızca 1, 2, 3 veya 4 olabilir
  */
 
 export {};
