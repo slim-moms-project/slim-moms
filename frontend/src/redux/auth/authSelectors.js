@@ -5,7 +5,3 @@ export const selectUserEmail = (state) => state.auth.user.email;
 export const selectAuthToken = (state) => state.auth.token;
 export const selectAuthIsLoading = (state) => state.auth.isLoading;
 export const selectAuthError = (state) => state.auth.error;
-
-const emptyArray = [];
-
-export const selectNotAllowedProducts = (state) => state.auth.user?.userData?.notAllowedProducts || emptyArray;
