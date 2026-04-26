@@ -179,8 +179,10 @@ export const calculateDailyCaloriesController = async (req, res, next) => {
       desiredWeight: Number(desiredWeight),
     });
 
+    const bloodTypeIndex = normalizedBloodType - 1;
+
     const notRecommendedProducts = await Product.find({
-      [`groupBloodNotAllowed.${normalizedBloodType}`]: true,
+      [`groupBloodNotAllowed.${bloodTypeIndex}`]: true,
     }).select('title category calories groupBloodNotAllowed');
 
     res.status(200).json({
