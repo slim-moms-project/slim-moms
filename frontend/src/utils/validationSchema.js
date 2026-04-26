@@ -10,13 +10,9 @@ const numberField = (label, min, max) =>
     .required(`${label} is required`);
 
 export const calculatorValidationSchema = yup.object({
-
   height: numberField('Height', 100, 250),
-
   age: numberField('Age', 18, 100),
-
   currentWeight: numberField('Current weight', 20, 500),
-
   desiredWeight: yup
     .number()
     .transform((value, originalValue) => originalValue === '' ? undefined : value)
@@ -34,7 +30,6 @@ export const calculatorValidationSchema = yup.object({
         return diff > 0 && diff <= 100;
       }
     ),
-
   bloodType: yup
     .number()
     .transform((value, originalValue) => originalValue === '' ? undefined : Number(originalValue))

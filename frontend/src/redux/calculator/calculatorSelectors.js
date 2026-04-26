@@ -5,7 +5,7 @@ export const selectCalculatorResult = createSelector(
   (state) => state.calculator.notRecommendedProducts,
   (dailyCalories, notRecommendedProducts) => ({
     dailyCalories,
-    notRecommended: notRecommendedProducts,
+    notRecommendedProducts,
   })
 );
 

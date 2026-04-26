@@ -13,7 +13,7 @@ export const calculateDailyCalories = createAsyncThunk(
         formData,
       );
       toast.success('Daily calories calculated successfully');
-      return data;
+      return data.data; 
     } catch (error) {
       const message = error.response?.data?.message ?? 'Calculation failed';
       toast.error(message);
