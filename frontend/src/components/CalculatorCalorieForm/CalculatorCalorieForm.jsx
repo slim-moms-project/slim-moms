@@ -10,7 +10,7 @@ const initialValues = {
   age: '',
   currentWeight: '',
   desiredWeight: '',
-  bloodType: '',
+  bloodType: '1',
 };
 
 const CalculatorCalorieForm = () => {
@@ -39,8 +39,6 @@ const CalculatorCalorieForm = () => {
       initialValues={initialValues}
       validationSchema={calculatorValidationSchema}
       onSubmit={handleSubmit}
-      validateOnBlur
-      validateOnChange={false}
     >
       {({ isValid, dirty }) => (
         <Form className={css.form}>
@@ -86,6 +84,7 @@ const CalculatorCalorieForm = () => {
                         name="bloodType"
                         value={String(type)}
                       />
+                      <span className={css.customRadio}></span>
                       {type}
                     </label>
                   ))}

@@ -1,5 +1,6 @@
 .container {
     width: 100%;
+    
     font-family: 'Verdana', sans-serif;
     min-height: 100vh;
 }
@@ -71,35 +72,23 @@
     color: #FC842D;
 }
 
-.notRecommendedSection {
+/* bmr ve activityLevel */
+.extraInfo {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
 }
 
-.notRecommendedTitle {
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 17px;
-    letter-spacing: 0.04em;
-    color: #212121;
-}
-
-.notRecommendedList {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.notRecommendedItem {
-    font-weight: 400;
+.extraItem {
     font-size: 14px;
     line-height: 17px;
     letter-spacing: 0.04em;
     color: #9B9FAA;
+}
+
+.extraItem strong {
+    color: #212121;
+    font-weight: 700;
 }
 
 @media screen and (min-width: 768px) {

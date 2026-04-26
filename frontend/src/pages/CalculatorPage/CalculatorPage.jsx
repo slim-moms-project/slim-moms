@@ -7,8 +7,8 @@ import {
 import css from './CalculatorPage.module.css';
 
 const CalculatorPage = () => {
-  const result = useSelector(selectCalculatorResult) || {};
-  const { dailyCalories, notRecommendedProducts } = result;
+  const result = useSelector(selectCalculatorResult);
+  const { dailyCalories, notRecommended } = result;
   const isLoading = useSelector(selectCalculatorIsLoading);
   const hasResult = Boolean(dailyCalories);
 
@@ -39,15 +39,15 @@ const CalculatorPage = () => {
               <p className={css.resultValue}>
                 {dailyCalories} kcal
               </p>
-              {notRecommendedProducts?.length > 0 && (
+              {notRecommended?.length > 0 && (
                 <div className={css.notRecommendedSection}>
                   <p className={css.notRecommendedTitle}>
                     Food not recommended
                   </p>
                   <ul className={css.notRecommendedList}>
-                    {notRecommendedProducts.map((product) => (
-                      <li key={product._id} className={css.notRecommendedItem}>
-                        {product.title}
+                    {notRecommended.map((product) => (
+                      <li key={product} className={css.notRecommendedItem}>
+                        {product}
                       </li>
                     ))}
                   </ul>

@@ -48,23 +48,10 @@
     border-bottom-color: #FC842D;
 }
 
+
 .input option {
     font-weight: 400;
     color: #212121;
-}
-
-.bloodTypeGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.bloodTypeLabel {
-    font-family: 'Verdana', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-    color: #9B9FAA;
-    letter-spacing: 0.04em;
 }
 
 .radioGroup {
@@ -109,6 +96,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
 
 .error {
     font-family: 'Verdana', sans-serif;
