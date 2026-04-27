@@ -26,11 +26,11 @@ const CalculatorCalorieForm = () => {
           currentWeight: Number(values.currentWeight),
           desiredWeight: Number(values.desiredWeight),
           bloodType: Number(values.bloodType),
-        })
+        }),
       ).unwrap();
       resetForm();
-    } catch (error) {
-      console.error('Calculation failed:', error);
+    } catch {
+      //Error toast is handled in the async operation.
     }
   };
 
@@ -45,13 +45,16 @@ const CalculatorCalorieForm = () => {
       {({ isValid, dirty }) => (
         <Form className={css.form}>
           <div className={css.fields}>
-
             {/* SOL */}
             <div className={css.col}>
               <div className={css.field}>
                 <label className={css.label}>Height *</label>
                 <Field className={css.input} name="height" type="number" />
-                <ErrorMessage name="height" component="p" className={css.error} />
+                <ErrorMessage
+                  name="height"
+                  component="p"
+                  className={css.error}
+                />
               </div>
 
               <div className={css.field}>
@@ -62,8 +65,16 @@ const CalculatorCalorieForm = () => {
 
               <div className={css.field}>
                 <label className={css.label}>Current weight *</label>
-                <Field className={css.input} name="currentWeight" type="number" />
-                <ErrorMessage name="currentWeight" component="p" className={css.error} />
+                <Field
+                  className={css.input}
+                  name="currentWeight"
+                  type="number"
+                />
+                <ErrorMessage
+                  name="currentWeight"
+                  component="p"
+                  className={css.error}
+                />
               </div>
             </div>
 
@@ -71,14 +82,22 @@ const CalculatorCalorieForm = () => {
             <div className={css.col}>
               <div className={css.field}>
                 <label className={css.label}>Desired weight *</label>
-                <Field className={css.input} name="desiredWeight" type="number" />
-                <ErrorMessage name="desiredWeight" component="p" className={css.error} />
+                <Field
+                  className={css.input}
+                  name="desiredWeight"
+                  type="number"
+                />
+                <ErrorMessage
+                  name="desiredWeight"
+                  component="p"
+                  className={css.error}
+                />
               </div>
 
               <div className={css.bloodTypeGroup}>
                 <p className={css.bloodTypeLabel}>Blood type *</p>
                 <div className={css.radioGroup}>
-                  {[1, 2, 3, 4].map(type => (
+                  {[1, 2, 3, 4].map((type) => (
                     <label key={type} className={css.radioLabel}>
                       <Field
                         className={css.radioInput}
@@ -90,10 +109,13 @@ const CalculatorCalorieForm = () => {
                     </label>
                   ))}
                 </div>
-                <ErrorMessage name="bloodType" component="p" className={css.error} />
+                <ErrorMessage
+                  name="bloodType"
+                  component="p"
+                  className={css.error}
+                />
               </div>
             </div>
-
           </div>
 
           <button
@@ -103,7 +125,6 @@ const CalculatorCalorieForm = () => {
           >
             {isLoading ? 'Calculating...' : 'Start losing weight'}
           </button>
-
         </Form>
       )}
     </Formik>

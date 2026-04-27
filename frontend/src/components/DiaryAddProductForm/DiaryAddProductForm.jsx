@@ -20,11 +20,13 @@ const DiaryAddProductForm = ({ closeModal }) => {
 
     const fetchProducts = async () => {
       try {
-        const { data } = await axiosInstance.get(`/product?search=${query}`);
+        const { data } = await axiosInstance.get(
+          `/api/product?search?q=${encodeURIComponent(query)}`,
+        );
         const productsArray = data?.data?.data || data?.data || [];
         setSuggestions(productsArray);
-      } catch{
-        // Reviewer'ın 8. madde uyarısı
+      } catch {
+        setSuggestions([]);
       }
     };
 
@@ -46,13 +48,17 @@ const DiaryAddProductForm = ({ closeModal }) => {
     if (!selectedProduct || !grams) return;
 
     const amountNumber = Number(grams);
-    const calculatedCalories = Math.round((selectedProduct.calories / 100) * amountNumber);
-    dispatch(addProduct({
-      date: date,
-      productId: selectedProduct._id,
-      amount: amountNumber,
-      calories: calculatedCalories
-    }));
+    const calculatedCalories = Math.round(
+      (selectedProduct.calories / 100) * amountNumber,
+    );
+    dispatch(
+      addProduct({
+        date: date,
+        productId: selectedProduct._id,
+        amount: amountNumber,
+        calories: calculatedCalories,
+      }),
+    );
 
     setQuery('');
     setGrams('');
@@ -109,7 +115,11 @@ const DiaryAddProductForm = ({ closeModal }) => {
         />
       </div>
 
-      <button type="submit" className={styles.addBtn} disabled={!selectedProduct || !grams}>
+      <button
+        type="submit"
+        className={styles.addBtn}
+        disabled={!selectedProduct || !grams}
+      >
         <span className={styles.desktopPlus}>+</span>
         <span className={styles.mobileAddText}>Add</span>
       </button>
