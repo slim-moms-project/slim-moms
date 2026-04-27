@@ -1,11 +1,20 @@
-// import css from './RegistrationPage.module.css';
+import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
+import css from './RegistrationPage.module.css';
 
-const RegistrationPage = () => {
+const RegisterPage = () => {
   return (
-    <div>
-      <p></p>
-    </div>
+    <section className={css.page}>
+      <div className={css.scene}>
+        <div className={css.decor}></div>
+
+        <div className={css.container}>
+          <div className={css.loginArea}>
+            <RegistrationForm />
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 
-export default RegistrationPage;
+export default RegisterPage;
