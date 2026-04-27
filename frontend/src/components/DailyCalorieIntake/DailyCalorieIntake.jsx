@@ -35,7 +35,9 @@ const DailyCalorieIntake = ({ dailyRate = 0, notRecommendedFoods = [], closeModa
         {notRecommendedFoods.length > 0 ? (
           <ol className={styles.forbiddenList}>
             {notRecommendedFoods.map((food, index) => (
-              <li key={index} className={styles.forbiddenItem}>{food}</li>
+              <li key={food._id ?? index} className={styles.forbiddenItem}>
+                {typeof food === 'string' ? food : food.title}
+              </li>
             ))}
           </ol>
         ) : (

@@ -3,14 +3,14 @@ import { useSelector } from 'react-redux';
 import DailyCaloriesForm from '../../components/DailyCaloriesForm/DailyCaloriesForm';
 import DailyCalorieIntake from '../../components/DailyCalorieIntake/DailyCalorieIntake';
 import Modal from '../../components/Modal/Modal';
-import { selectDailyRate, selectNotAllowedProducts } from '../../redux/calculator/calculatorSelectors';
+import { selectCalculatorResult } from '../../redux/calculator/calculatorSelectors';
 import styles from './MainPage.module.css';
 
 const MainPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const dailyRate = useSelector(selectDailyRate);
-  const notAllowedProducts = useSelector(selectNotAllowedProducts);
+  const result = useSelector(selectCalculatorResult) || {};
+  const { dailyCalories, notRecommendedProducts } = result;
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
@@ -23,11 +23,11 @@ const MainPage = () => {
 
       </div>
 
-      {isModalOpen && dailyRate && (
+      {isModalOpen && dailyCalories && (
         <Modal onClose={handleCloseModal}>
           <DailyCalorieIntake
-            dailyRate={dailyRate}
-            notRecommendedFoods={notAllowedProducts}
+            dailyRate={dailyCalories}
+            notRecommendedFoods={notRecommendedProducts}
             closeModal={handleCloseModal}
           />
         </Modal>
