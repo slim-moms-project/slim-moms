@@ -31,3 +31,18 @@
 .logoutBtn:hover {
   color: #212121;
 }
+
+@media screen and (max-width: 767px) {
+  .userInfoContainer {
+    gap: 10px;
+  }
+
+  .userName,
+  .logoutBtn {
+    font-size: 12px;
+  }
+
+  .divider {
+    height: 24px;
+  }
+}

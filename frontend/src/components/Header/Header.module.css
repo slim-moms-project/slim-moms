@@ -1,6 +1,5 @@
 /* --- GENEL HEADER STİLLERİ --- */
 .header {
-  border-bottom: 2px solid #E0E0E0;
   background-color: #FFFFFF;
   position: relative; /* Mobile menü bunun altında açılacak */
   z-index: 1000; /* Menünün her şeyin üstünde kalması için */
@@ -29,6 +28,11 @@
 /* UserInfo Bileşeni İçin Sarıcı (Wrapper) */
 .userInfoWrapper {
   display: flex;
+  align-items: center;
+}
+
+.desktopUserInfoWrapper {
+  display: none;
   align-items: center;
 }
 
@@ -83,12 +87,63 @@
 
 /* MOBİL GÖRÜNÜM (<768px) */
 @media screen and (max-width: 767px) {
+  .headerContent {
+    border-bottom: 2px solid #E0E0E0;
+  }
+
+  .headerRight {
+    flex: 1;
+    justify-content: flex-end;
+    gap: 0;
+  }
+
+  .menuToggleBtn {
+    margin-left: auto;
+  }
+
   .userInfoWrapper {
-    display: none; /* Figma'ya göre mobilde Header'da kullanıcı adı yok */
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px 20px;
+    background-color: #EFF1F3;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .header {
+    border-bottom: 2px solid #E0E0E0;
+  }
+
+  .headerContent {
+    border-bottom: none;
+  }
+
+  .menuToggleBtn {
+    display: none;
+  }
+
+  .desktopNav {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  .userInfoWrapper {
+    display: flex; /* Figma'ya göre mobilde Header'da kullanıcı adı yok */
   }
 }
 
 /* MASAÜSTÜ GÖRÜNÜM (1280px ve Üzeri) */
+@media screen and (min-width: 768px) {
+  .userInfoWrapper {
+    display: none;
+  }
+
+  .desktopUserInfoWrapper {
+    display: flex;
+  }
+}
+
 @media screen and (min-width: 1280px) {
   .menuToggleBtn {
     display: none; /* Masaüstünde hamburger menüye gerek yok */

@@ -43,11 +43,10 @@ const Header = () => {
 
         <div className={styles.headerRight}>
           {isAuthenticated && (
-            <div className={styles.userInfoWrapper}>
+            <div className={styles.desktopUserInfoWrapper}>
               <UserInfo />
             </div>
           )}
-
           <button className={styles.menuToggleBtn} onClick={toggleMenu}>
             {isMenuOpen ? (
               <svg
@@ -106,6 +105,12 @@ const Header = () => {
           </button>
         </div>
       </div>
+
+      {isAuthenticated && (
+        <div className={styles.userInfoWrapper}>
+          <UserInfo />
+        </div>
+      )}
 
       {isMenuOpen && (
         <div className={styles.mobileMenuOverlay}>

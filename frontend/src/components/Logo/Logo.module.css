@@ -18,9 +18,9 @@
   flex-shrink: 0;
   display: block; /* Bunu ekleyip garantileyelim */
 }
-/* Mobilde yazıyı gizleyip sadece ikonu göstermek için (SlimMom Tasarımına Uygun) */
-@media screen and (max-width: 767px) {
+
+@media screen and (min-width: 768px) {
   .logoText {
-    display: none;
+    display: flex;
   }
 }

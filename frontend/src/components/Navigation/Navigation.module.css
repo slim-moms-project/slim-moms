@@ -22,10 +22,9 @@
   color: #212121;
 }
 
-/* Mobilde ve tablette varsayılan olarak gizli (Hamburger menü içinde açılacak) */
-@media screen and (max-width: 1279px) {
+@media screen and (min-width: 768px) {
   .navContainer {
-    display: flex;
+    display: none;
   }
 }
 

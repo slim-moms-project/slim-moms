@@ -24,7 +24,7 @@
 .container {
     position: relative;
     z-index: 1;
-    padding: 0 16px;
+    padding: 0 20px;
     min-height: calc(100vh - 80px);
     margin: 0 auto;
     width: 100%;
@@ -41,7 +41,7 @@
 /* Tablet */
 @media screen and (min-width: 768px) {
     .container {
-        padding: 0 20px;
+        padding: 0 16px;
     }
     .scene {
         height: 1024px;
