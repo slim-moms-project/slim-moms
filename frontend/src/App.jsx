@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { refreshUser } from './redux/auth/authOperations.js';
 import { selectAuthToken } from './redux/auth/authSelectors.js';
 
+import Loader from './components/Loader/Loader.jsx';
 import Header from './components/Header/Header.jsx';
 import PrivateRoute from './components/routes/PrivateRoute.jsx';
 import PublicRoute from './components/routes/PublicRoute.jsx';
@@ -35,7 +36,7 @@ function App() {
   }, [dispatch, token]);
 
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route
