@@ -9,7 +9,8 @@ import styles from './RightSideBar.module.css';
 const RightSideBar = () => {
   const date = useSelector(selectDiaryDate);
   const summary = useSelector(selectDiarySummary);
-  const { notRecommendedProducts = [] } = useSelector(selectCalculatorResult);
+  const { dailyCalories, notRecommendedProducts = [] } =
+    useSelector(selectCalculatorResult);
   const notRecommendedFoods = notRecommendedProducts.map(
     (product) => product.title,
   );
@@ -22,7 +23,7 @@ const RightSideBar = () => {
   const consumed = summary?.totalCalories || 0;
 
   // 2. Günlük İhtiyaç: Henüz hesap makinesi kullanılmadıysa şimdilik 0 gelir.
-  const dailyRate = summary?.dailyRate || 0;
+  const dailyRate = summary?.dailyRate || dailyCalories || 0;
 
   // 3. MATEMATİK: Kalan kalori ve Yüzdelik dilim hesaplanıyor
   // Eğer günlük sınır aşılmışsa eksiye düşmemesi için Math.max kullandık.

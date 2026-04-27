@@ -1,12 +1,11 @@
 import { HttpError } from 'http-errors';
 
 export const errorHandler = (err, req, res, next) => {
-  // createHttpError'dan bir hata alıp almadığımızı kontrol ediyoruz
   if (err instanceof HttpError) {
     res.status(err.status).json({
       status: err.status,
-      message: err.name,
-      data: err.message,
+      message: err.message,
+      errors: err.errors,
     });
     return;
   }
@@ -14,6 +13,6 @@ export const errorHandler = (err, req, res, next) => {
   res.status(500).json({
     status: 500,
     message: 'Something went wrong',
-    data: err.message,
+    errors: err.message,
   });
 };

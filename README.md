@@ -132,7 +132,7 @@ JWT_EXPIRES_IN=7d
 `frontend/.env.example` dosyasini kopyalayip `frontend/.env` olarak olusturun.
 
 ```env
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=http://localhost:5000
 ```
 
 ## Projeyi Calistirma

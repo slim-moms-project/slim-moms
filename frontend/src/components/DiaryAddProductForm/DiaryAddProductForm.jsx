@@ -21,7 +21,7 @@ const DiaryAddProductForm = ({ closeModal }) => {
     const fetchProducts = async () => {
       try {
         const { data } = await axiosInstance.get(
-          `/api/product?search?q=${encodeURIComponent(query)}`,
+          `/api/product/search?q=${encodeURIComponent(query)}`,
         );
         const productsArray = data?.data?.data || data?.data || [];
         setSuggestions(productsArray);

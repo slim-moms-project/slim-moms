@@ -9,7 +9,7 @@ export const calculateDailyCalories = createAsyncThunk(
     thunkAPI.dispatch(showLoader());
     try {
       const { data } = await axiosInstance.post(
-        '/api/products/calculate-daily-calories',
+        '/api/product/calculate-daily-calories',
         formData,
       );
       toast.success('Daily calories calculated successfully');
