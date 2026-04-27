@@ -15,6 +15,9 @@ const RegistrationPage = lazy(
   () => import('./pages/RegistrationPage/RegistrationPage.jsx'),
 );
 const DiaryPage = lazy(() => import('./pages/DiaryPage/DiaryPage.jsx'));
+const CalculatorPage = lazy(
+  () => import('./pages/CalculatorPage/CalculatorPage.jsx'),
+);
 const MainPage = lazy(
   () => import('./pages/MainPage/MainPage.jsx'),
 );
@@ -69,7 +72,7 @@ function App() {
               <PrivateRoute
                 component={
                   <PrivateLayout>
-                    <MainPage />
+                    <CalculatorPage />
                   </PrivateLayout>
                 }
               />
