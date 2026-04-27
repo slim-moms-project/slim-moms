@@ -1,0 +1,33 @@
+/* Ekranın tamamını kaplayan, hafif şeffaf beyaz arkaplan */
+.loaderOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Sayfadaki her şeyin (menülerin bile) üstünde kalmasını sağlar */
+}
+
+/* Kendi etrafında dönen şık turuncu halka */
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #F0F1F3; /* Açık gri pasif halka */
+  border-top: 6px solid #FC842D; /* Projenin ana turuncu rengi */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Dönme animasyonu (Keyframes) */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

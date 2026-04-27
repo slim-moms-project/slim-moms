@@ -1,0 +1,72 @@
+/* --- MOBİL İLK YAKLAŞIM --- */
+.mainContainer {
+  min-height: calc(100vh - 80px);
+  padding: 32px 20px;
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
+.contentWrapper {
+  width: 100%;
+}
+
+/* --- TABLET GÖRÜNÜMÜ (768px - 1279px arası) --- */
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .mainContainer {
+    padding: 100px 32px;
+    background-image:
+            url('../../assets/images/Strawberry-Big-PNG.png'),
+            url('../../assets/images/Layer-42-auth.png'),
+            url('../../assets/images/Layer-9.png'),
+            url('../../assets/images/vector-3.png');
+
+        background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+
+        background-position:
+            right 0 top 360px,
+            right 0 top -120px,
+            right 0 top 605px,
+            right -50px top 345px;
+
+        background-size:
+            281px auto,
+            770px auto,
+            480px auto,
+            590px auto;
+  }
+
+  .contentWrapper {
+    width: 100%;
+  }
+}
+
+/* --- MASAÜSTÜ GÖRÜNÜMÜ (1280px ve üzeri) --- */
+@media screen and (min-width: 1280px) {
+  .mainContainer {
+    padding: 140px 16px;
+    background-image:
+            url('../../assets/images/Layer-4.png'),
+            url('../../assets/images/Strawberry-Big.png'),
+            url('../../assets/images/Banana.png'),
+            url('../../assets/images/vector-3.png');
+
+        background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+
+        background-position:
+            right 205px top -70px,
+            right 50px top 440px,
+            right 0px top -10px,
+            right -10px bottom 0;
+
+        background-size:
+            770px auto,
+            325px auto,
+            500px auto,
+            600px auto;
+  }
+
+  .contentWrapper {
+    width: 600px;
+    padding-left: 16px;
+  }
+}
