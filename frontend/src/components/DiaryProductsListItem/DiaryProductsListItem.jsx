@@ -6,29 +6,24 @@ const DiaryProductsListItem = ({ item }) => {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    // 1. Ürün ID'sini alıyoruz
-    const productId = item.id || item._id;
+    const diaryEntryId = item._id || item.id;
 
-    // 2. Gün ID'si yerine objenin içindeki TARİHİ kullanıyoruz!
-    const dayId = item.date;
-
-    if (!dayId || !productId) {
-      console.error("Silme işlemi için gerekli bilgiler eksik!");
+    if (!diaryEntryId) {
       return;
     }
 
-    // Backend'e tarihi ve ürün ID'sini gönderiyoruz
-    dispatch(removeProduct({ dayInfoId: dayId, productId }));
+    dispatch(removeProduct({ productId: diaryEntryId }));
   };
 
   return (
     <li className={styles.productListItem}>
-      {/* Backend düzeltene kadar geçici bir not düşüyoruz */}
       <span className={styles.itemName}>
-        {item.title || item.product?.title || "İsimsiz (Backend'den bekleniyor)"}
+        {item.title || item.product?.title || 'Unnamed product'}
       </span>
       <span className={styles.itemGrams}>{item.amount} g</span>
-      <span className={styles.itemCalories}>{Math.round(item.calories)} kcal</span>
+      <span className={styles.itemCalories}>
+        {Math.round(item.calories)} kcal
+      </span>
       <button
         type="button"
         className={styles.deleteBtn}

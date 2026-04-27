@@ -9,7 +9,8 @@
   height: 100%;
 }
 
-.summarySection, .foodsSection {
+.summarySection,
+.foodsSection {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -35,7 +36,7 @@
   display: flex;
   justify-content: space-between;
   font-size: 14px;
-  color: #9B9FAA;
+  color: #9b9faa;
 }
 
 .itemLabel {
@@ -50,7 +51,7 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  color: #9B9FAA;
+  color: #9b9faa;
   font-size: 14px;
   margin: 0;
   padding-left: 15px; /* Madde işaretleri (bullet) için biraz boşluk */
@@ -58,7 +59,7 @@
 
 .noFoodsText {
   font-size: 14px;
-  color: #9B9FAA;
+  color: #9b9faa;
   margin: 0;
 }
 
@@ -68,13 +69,11 @@
     flex-direction: row; /* Tablette yan yana geçebilirler */
     justify-content: flex-start;
     padding: 80px 30px;
-    background-image: url('../../assets/leaves-tablet.png'); /* Eğer yaprak görsellerin varsa buraya ekleyebilirsin */
-    background-repeat: no-repeat;
-    background-position: bottom right;
     gap: 80px;
   }
 
-  .summarySection, .foodsSection {
+  .summarySection,
+  .foodsSection {
     width: 45%; /* Tablette %45 - %45 yer kaplarlar */
   }
 }
@@ -88,7 +87,8 @@
     height: 100vh; /* Tam ekran yüksekliği */
   }
 
-  .summarySection, .foodsSection {
+  .summarySection,
+  .foodsSection {
     width: 100%; /* Masaüstünde kendi alanında tam genişlik */
   }
 }

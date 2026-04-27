@@ -30,8 +30,8 @@ const DailyCaloriesForm = ({ openModal }) => {
       if (openModal) {
         openModal();
       }
-    } catch (error) {
-      console.error("Hesaplama sırasında hata oluştu:", error);
+    } catch {
+      //Error toast is handled in the async operation.
     }
   };
 

@@ -7,7 +7,6 @@ import axiosInstance, {
 
 import { showLoader, hideLoader } from '../global/globalSlice.js';
 
-
 export const registerUser = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
@@ -16,15 +15,14 @@ export const registerUser = createAsyncThunk(
     try {
       const { data } = await axiosInstance.post(
         '/api/auth/register',
-        credentials
+        credentials,
       );
 
       toast.success(data.message || 'Account created successfully!');
 
       return data.data;
     } catch (error) {
-      const message =
-        error.response?.data?.message || 'Registration failed';
+      const message = error.response?.data?.message || 'Registration failed';
 
       toast.error(message);
 
@@ -32,7 +30,7 @@ export const registerUser = createAsyncThunk(
     } finally {
       thunkAPI.dispatch(hideLoader());
     }
-  }
+  },
 );
 
 export const loginUser = createAsyncThunk(
@@ -41,10 +39,7 @@ export const loginUser = createAsyncThunk(
     thunkAPI.dispatch(showLoader());
 
     try {
-      const { data } = await axiosInstance.post(
-        '/api/auth/login',
-        credentials
-      );
+      const { data } = await axiosInstance.post('/api/auth/login', credentials);
 
       setAuthHeader(data.data.token);
 
@@ -52,8 +47,7 @@ export const loginUser = createAsyncThunk(
 
       return data.data;
     } catch (error) {
-      const message =
-        error.response?.data?.message || 'Login failed';
+      const message = error.response?.data?.message || 'Login failed';
 
       toast.error(message);
 
@@ -61,7 +55,7 @@ export const loginUser = createAsyncThunk(
     } finally {
       thunkAPI.dispatch(hideLoader());
     }
-  }
+  },
 );
 
 export const logoutUser = createAsyncThunk(
@@ -84,5 +78,31 @@ export const logoutUser = createAsyncThunk(
     } finally {
       thunkAPI.dispatch(hideLoader());
     }
-  }
+  },
+);
+
+export const refreshUser = createAsyncThunk(
+  'auth/refresh',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const token = state.auth.token;
+
+    if (!token) {
+      return thunkAPI.rejectWithValue('No token');
+    }
+
+    setAuthHeader(token);
+
+    try {
+      const { data } = await axiosInstance.get('/api/auth/current');
+
+      return data.data;
+    } catch (error) {
+      clearAuthHeader();
+
+      const message = error.response?.data?.message || 'Failed to refresh user';
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  },
 );

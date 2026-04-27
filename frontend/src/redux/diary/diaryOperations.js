@@ -8,7 +8,7 @@ export const fetchDiary = createAsyncThunk(
   async (date, thunkAPI) => {
     thunkAPI.dispatch(showLoader());
     try {
-      const { data } = await axiosInstance.get(`/diary?date=${date}`);
+      const { data } = await axiosInstance.get(`/api/diary?date=${date}`);
       return data;
     } catch (error) {
       if (error.response?.status !== 404) {
@@ -26,7 +26,7 @@ export const addProduct = createAsyncThunk(
   async (productData, thunkAPI) => {
     thunkAPI.dispatch(showLoader());
     try {
-      const { data } = await axiosInstance.post('/diary', productData);
+      const { data } = await axiosInstance.post('/api/diary', productData);
       toast.success('Product added');
       return data;
     } catch (error) {
@@ -43,7 +43,7 @@ export const removeProduct = createAsyncThunk(
   async ({ productId }, thunkAPI) => {
     thunkAPI.dispatch(showLoader());
     try {
-      await axiosInstance.delete(`/diary/${productId}`);
+      await axiosInstance.delete(`/api/diary/${productId}`);
 
       toast.success('Product removed');
       return { id: productId };

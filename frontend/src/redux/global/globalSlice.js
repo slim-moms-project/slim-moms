@@ -7,11 +7,11 @@ const globalSlice = createSlice({
     error: null,
   },
   reducers: {
-    showLoader(state, action) {
-      state.isLoading = action.payload;
+    showLoader(state) {
+      state.isLoading = true;
     },
-    hideLoader(state, action) {
-      state.isLoading = action.payload;
+    hideLoader(state) {
+      state.isLoading = false;
     },
   },
 });
