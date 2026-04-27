@@ -25,7 +25,7 @@
 /* Mobilde ve tablette varsayılan olarak gizli (Hamburger menü içinde açılacak) */
 @media screen and (max-width: 1279px) {
   .navContainer {
-    display: none;
+    display: flex;
   }
 }
 

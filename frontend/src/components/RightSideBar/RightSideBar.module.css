@@ -2,7 +2,6 @@
 
 .sidebarContainer {
   background-color: transparent;
-  padding: 40px 20px;
   display: flex;
   flex-direction: column;
   gap: 40px; /* İki bölüm (Summary ve Foods) arasındaki boşluk */
@@ -68,7 +67,6 @@
   .sidebarContainer {
     flex-direction: row; /* Tablette yan yana geçebilirler */
     justify-content: flex-start;
-    padding: 80px 30px;
     gap: 80px;
   }
 
@@ -84,7 +82,6 @@
     flex-direction: column; /* Masaüstünde tekrar alt alta geçerler çünkü sidebar sağa sabitlenir */
     justify-content: flex-start;
     padding: 80px 100px 80px 40px;
-    height: 100vh; /* Tam ekran yüksekliği */
   }
 
   .summarySection,

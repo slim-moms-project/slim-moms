@@ -16,7 +16,7 @@
 
 .resultSection {
     background: #F0F1F3;
-    padding: 40px 20px;
+    padding: 26px 20px;
     min-height: 360px;
     position: relative;
     overflow: hidden;
@@ -28,78 +28,6 @@
     line-height: 1.4;
     color: #212121;
     margin-bottom: 34px;
-}
-
-.resultContent {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    position: relative;
-    z-index: 1;
-}
-
-.resultLabel {
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 17px;
-    letter-spacing: 0.04em;
-    color: #212121;
-    margin-bottom: 20px;
-}
-
-.resultValue {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    letter-spacing: 0.04em;
-    color: #9B9FAA;
-}
-
-.placeholder {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    letter-spacing: 0.04em;
-    color: #9B9FAA;
-}
-
-.error {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    letter-spacing: 0.04em;
-    color: #FC842D;
-}
-
-.notRecommendedSection {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-}
-
-.notRecommendedTitle {
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 17px;
-    letter-spacing: 0.04em;
-    color: #212121;
-}
-
-.notRecommendedList {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.notRecommendedItem {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    letter-spacing: 0.04em;
-    color: #9B9FAA;
 }
 
 @media screen and (min-width: 768px) {
@@ -114,15 +42,8 @@
     }
 
     .resultSection {
-        padding: 80px 32px;
         min-height: 326px;
     }
-
-    .resultContent {
-        flex-direction: row;
-        gap: 80px;
-    }
-
     .resultSection::after {
         content: '';
         position: absolute;
@@ -143,24 +64,17 @@
 
     .formSection {
         width: 60%;
-        padding: 293px 100px 100px 16px;
     }
 
     .resultSection {
         width: 40%;
-        padding: 292px 80px 100px 106px;
-    }
-
-    .resultContent {
-        flex-direction: column;
-        gap: 60px;
     }
 
     .resultSection::after {
         width: 740px;
         height: 842px;
         right: -250px;
-        top: 35px;
+        top: -136px;
         background: url('../../assets/images/Layer-42.png') no-repeat;
         transform: rotate(0deg);
         opacity: 1;

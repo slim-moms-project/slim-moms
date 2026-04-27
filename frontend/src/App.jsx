@@ -22,13 +22,6 @@ const MainPage = lazy(
   () => import('./pages/MainPage/MainPage.jsx'),
 );
 
-const PrivateLayout = ({ children }) => (
-  <>
-    <Header />
-    {children}
-  </>
-);
-
 function App() {
   const dispatch = useDispatch();
   const token = useSelector(selectAuthToken);
@@ -44,6 +37,7 @@ function App() {
     <>
       {isGlobalLoading && <Loader />}
       <Suspense fallback={<Loader />}>
+        <Header />
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route
@@ -57,25 +51,13 @@ function App() {
           <Route
             path="/diary"
             element={
-              <PrivateRoute
-                component={
-                  <PrivateLayout>
-                    <DiaryPage />
-                  </PrivateLayout>
-                }
-              />
+              <PrivateRoute component={<DiaryPage />} />
             }
           />
           <Route
             path="/calculator"
             element={
-              <PrivateRoute
-                component={
-                  <PrivateLayout>
-                    <CalculatorPage />
-                  </PrivateLayout>
-                }
-              />
+              <PrivateRoute component={<CalculatorPage />} />
             }
           />
           <Route path="*" element={<Navigate to="/login" replace />} />
