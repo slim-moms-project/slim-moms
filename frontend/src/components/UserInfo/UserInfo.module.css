@@ -1,0 +1,33 @@
+/* frontend/src/components/UserInfo/UserInfo.module.css */
+.userInfoContainer {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.userName {
+  font-size: 14px;
+  font-weight: 700;
+  color: #212121;
+}
+
+.divider {
+  width: 2px;
+  height: 32px;
+  background-color: #E0E0E0;
+}
+
+.logoutBtn {
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  color: #9B9FAA;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.logoutBtn:hover {
+  color: #212121;
+}

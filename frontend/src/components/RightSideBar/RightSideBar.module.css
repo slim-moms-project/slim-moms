@@ -1,0 +1,94 @@
+/* frontend/src/components/RightSideBar/RightSideBar.module.css */
+
+.sidebarContainer {
+  background-color: transparent;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* İki bölüm (Summary ve Foods) arasındaki boşluk */
+  height: 100%;
+}
+
+.summarySection, .foodsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: #212121;
+  margin: 0;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #9B9FAA;
+}
+
+.itemLabel {
+  text-align: left;
+}
+
+.itemValue {
+  text-align: right;
+}
+
+.foodsList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  color: #9B9FAA;
+  font-size: 14px;
+  margin: 0;
+  padding-left: 15px; /* Madde işaretleri (bullet) için biraz boşluk */
+}
+
+.noFoodsText {
+  font-size: 14px;
+  color: #9B9FAA;
+  margin: 0;
+}
+
+/* --- TABLET --- */
+@media screen and (min-width: 768px) {
+  .sidebarContainer {
+    flex-direction: row; /* Tablette yan yana geçebilirler */
+    justify-content: flex-start;
+    padding: 80px 30px;
+    background-image: url('../../assets/leaves-tablet.png'); /* Eğer yaprak görsellerin varsa buraya ekleyebilirsin */
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    gap: 80px;
+  }
+
+  .summarySection, .foodsSection {
+    width: 45%; /* Tablette %45 - %45 yer kaplarlar */
+  }
+}
+
+/* --- DESKTOP --- */
+@media screen and (min-width: 1280px) {
+  .sidebarContainer {
+    flex-direction: column; /* Masaüstünde tekrar alt alta geçerler çünkü sidebar sağa sabitlenir */
+    justify-content: flex-start;
+    padding: 80px 100px 80px 40px;
+    height: 100vh; /* Tam ekran yüksekliği */
+  }
+
+  .summarySection, .foodsSection {
+    width: 100%; /* Masaüstünde kendi alanında tam genişlik */
+  }
+}
