@@ -38,7 +38,7 @@ const DailyCaloriesForm = ({ openModal }) => {
   return (
     <div className={styles.calculatorFormContainer}>
       <h2 className={styles.calculatorTitle}>
-        Hemen kilo vermek için günlük kalori ihtiyacınızı hesaplayın
+        Calculate your daily calorie intake right now
       </h2>
 
       <form className={styles.calculatorForm} onSubmit={handleSubmit}>
@@ -54,7 +54,7 @@ const DailyCaloriesForm = ({ openModal }) => {
                 required
                 placeholder=" "
               />
-              <label htmlFor="height">Boy *</label>
+              <label htmlFor="height">Height *</label>
             </div>
 
             <div className={styles.inputGroup}>
@@ -66,7 +66,7 @@ const DailyCaloriesForm = ({ openModal }) => {
                 required
                 placeholder=" "
               />
-              <label htmlFor="age">Yaş *</label>
+              <label htmlFor="age">Age *</label>
             </div>
 
             <div className={styles.inputGroup}>
@@ -78,7 +78,7 @@ const DailyCaloriesForm = ({ openModal }) => {
                 required
                 placeholder=" "
               />
-              <label htmlFor="currentWeight">Mevcut Kilo *</label>
+              <label htmlFor="currentWeight">Current weight *</label>
             </div>
           </div>
 
@@ -93,12 +93,12 @@ const DailyCaloriesForm = ({ openModal }) => {
                 required
                 placeholder=" "
               />
-              <label htmlFor="desiredWeight">Hedef Kilo *</label>
+              <label htmlFor="desiredWeight">Desired weight *</label>
             </div>
 
             {/* Kan Grubu Seçimi */}
             <div className={styles.radioGroupWrapper}>
-              <p className={styles.radioTitle}>Kan Grubu *</p>
+              <p className={styles.radioTitle}>Blood type *</p>
               <div className={styles.radioGroup}>
                 {[1, 2, 3, 4].map((type) => (
                   <label key={type} className={styles.radioLabel}>
@@ -119,7 +119,7 @@ const DailyCaloriesForm = ({ openModal }) => {
         </div>
 
         <button type="submit" className={styles.submitBtn}>
-          Hesapla
+          Start losing weight
         </button>
       </form>
     </div>
