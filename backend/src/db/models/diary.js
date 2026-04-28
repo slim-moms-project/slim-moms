@@ -10,7 +10,10 @@ const diarySchema = new Schema(
     productId: {
       type: Schema.Types.ObjectId,
       ref: 'product',
-      required: [true, 'Product ID is required!'],
+    },
+    productName: {
+      type: String,
+      trim: true,
     },
     date: {
       type: Date,

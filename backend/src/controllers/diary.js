@@ -56,7 +56,7 @@ export const addDiaryController = async (req, res) => {
   const userId = getUserIdOrRespond(req, res);
   if (!userId) return;
 
-  const { productId, date, amount, calories } = req.body; // validation ile kontrol edilecek
+  const { productId, productName, date, amount, calories } = req.body; // validation ile kontrol edilecek
   const parsedDate = parseDateOnly(date);
 
   if (!parsedDate) {
@@ -73,6 +73,7 @@ export const addDiaryController = async (req, res) => {
   const newDiary = await DiaryCollection.create({
     userId,
     productId,
+    productName,
     date: normalizedDate,
     amount,
     calories,

@@ -45,16 +45,18 @@ const DiaryAddProductForm = ({ closeModal }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!selectedProduct || !grams) return;
+    if (!query.trim() || !grams) return;
 
     const amountNumber = Number(grams);
-    const calculatedCalories = Math.round(
-      (selectedProduct.calories / 100) * amountNumber,
-    );
+    const calculatedCalories = selectedProduct
+      ? Math.round((selectedProduct.calories / 100) * amountNumber)
+      : 0;
+
     dispatch(
       addProduct({
         date: date,
-        productId: selectedProduct._id,
+        productId: selectedProduct?._id,
+        productName: query.trim(),
         amount: amountNumber,
         calories: calculatedCalories,
       }),
@@ -118,7 +120,7 @@ const DiaryAddProductForm = ({ closeModal }) => {
       <button
         type="submit"
         className={styles.addBtn}
-        disabled={!selectedProduct || !grams}
+        disabled={!query.trim() || !grams}
       >
         <span className={styles.desktopPlus}>+</span>
         <span className={styles.mobileAddText}>Add</span>

@@ -18,7 +18,7 @@ const DiaryProductsListItem = ({ item }) => {
   return (
     <li className={styles.productListItem}>
       <span className={styles.itemName}>
-        {item.title || item.product?.title || 'Unnamed product'}
+        {item.productName || item.title || item.product?.title || 'Unnamed product'}
       </span>
       <span className={styles.itemGrams}>{item.amount} g</span>
       <span className={styles.itemCalories}>
