@@ -9,7 +9,7 @@ const diarySchema = new Schema(
     },
     productId: {
       type: Schema.Types.ObjectId,
-      ref: 'product',
+      ref: 'Product',
     },
     productName: {
       type: String,

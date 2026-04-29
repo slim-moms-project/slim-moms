@@ -31,7 +31,9 @@ export const getProductsController = async (req, res, next) => {
       : 'title';
 
     const sortOrder =
-      req.query.sortOrder === SORT_ORDER.DESC ? SORT_ORDER.DESC : SORT_ORDER.ASC;
+      req.query.sortOrder === SORT_ORDER.DESC
+        ? SORT_ORDER.DESC
+        : SORT_ORDER.ASC;
 
     const category = req.query.category?.trim();
     const minCalories =
@@ -49,10 +51,7 @@ export const getProductsController = async (req, res, next) => {
       filter.category = { $regex: category, $options: 'i' };
     }
 
-    if (
-      Number.isFinite(minCalories) ||
-      Number.isFinite(maxCalories)
-    ) {
+    if (Number.isFinite(minCalories) || Number.isFinite(maxCalories)) {
       filter.calories = {};
 
       if (Number.isFinite(minCalories)) {
@@ -179,7 +178,8 @@ export const calculateDailyCaloriesController = async (req, res, next) => {
       desiredWeight: Number(desiredWeight),
     });
 
-    const bloodTypeIndex = normalizedBloodType - 1;
+    // Ürün verileri, kan grubu işaretlerini 1..4 numaralı dizinlerde saklar.
+    const bloodTypeIndex = normalizedBloodType;
 
     const notRecommendedProducts = await Product.find({
       [`groupBloodNotAllowed.${bloodTypeIndex}`]: true,

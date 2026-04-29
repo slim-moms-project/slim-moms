@@ -1,4 +1,5 @@
 import { DiaryCollection } from '../db/models/diary.js';
+import '../db/models/product.js';
 
 const getUserIdOrRespond = (req, res) => {
   const userId = req.user?._id;
@@ -45,8 +46,18 @@ const formatDateOnly = (value) => {
 
 const serializeDiaryEntry = (entry) => {
   const diaryObject = entry.toObject ? entry.toObject() : entry;
+  const product =
+    diaryObject.productId &&
+    typeof diaryObject.productId === 'object' &&
+    diaryObject.productId !== null
+      ? diaryObject.productId
+      : null;
+
   return {
     ...diaryObject,
+    productId: product?._id || diaryObject.productId,
+    product,
+    title: product?.title,
     date: formatDateOnly(diaryObject.date),
   };
 };
@@ -78,6 +89,9 @@ export const addDiaryController = async (req, res) => {
     amount,
     calories,
   });
+
+  await newDiary.populate('productId', 'title category calories');
+
   res.status(201).json({
     status: 'success',
     code: 201,
@@ -115,10 +129,12 @@ export const getDiaryController = async (req, res) => {
       $lte: endOfDay,
     };
   }
-  const diaryEntries = await DiaryCollection.find(filter).sort({
-    date: -1,
-    createdAt: -1,
-  });
+  const diaryEntries = await DiaryCollection.find(filter)
+    .populate('productId', 'title category calories')
+    .sort({
+      date: -1,
+      createdAt: -1,
+    });
 
   res.status(200).json({
     status: 'success',
@@ -147,6 +163,8 @@ export const deleteDiaryController = async (req, res) => {
         'No record was found, or you do not have permission to perform this action.',
     });
   }
+
+  await deletedDiary.populate('productId', 'title category calories');
 
   res.status(200).json({
     status: 'success',
